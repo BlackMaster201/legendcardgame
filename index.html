@@ -160,9 +160,9 @@
           <thead>
             <tr>
               <th>Mesa</th>
-              <th>Konami ID Jugador</th>
+              <th>Konami ID</th>
               <th>Jugador</th>
-              <th>Konami ID Jugador</th>
+              <th>Konami ID</th>
               <th>Jugador</th>
             </tr>
           </thead>
@@ -204,39 +204,36 @@
       filterByID(query);
     });
 
-    // ✅ Buscar el archivo Ronda con número más alto
+    // 🔁 Buscar el archivo Ronda con el número más alto (Ronda-20.csv, ..., Ronda-1.csv)
     async function buscarArchivoConRondaMasAlta() {
-      try {
-        const archivos = await fetch(".").then(res => res.text());
+      const maxRondas = 20;
+      let archivoEncontrado = null;
 
-        // Buscar archivos tipo Ronda-1.csv, Ronda-2.csv, etc.
-        const coincidencias = [...archivos.matchAll(/Ronda-(\d+)\.csv/g)];
-        if (coincidencias.length === 0) {
-          document.getElementById("rondaInfo").innerText = "No se encontró archivo Ronda-*.csv";
-          return;
-        }
+      for (let i = maxRondas; i >= 1; i--) {
+        const nombreArchivo = `Ronda-${i}.csv`;
+        try {
+          const res = await fetch(nombreArchivo);
+          if (res.ok) {
+            const text = await res.text();
+            document.getElementById("rondaInfo").innerText = "Ronda: " + i;
 
-        // Elegir el de mayor número
-        const archivoMayor = coincidencias
-          .map(m => ({ archivo: m[0], ronda: parseInt(m[1]) }))
-          .sort((a, b) => b.ronda - a.ronda)[0];
-
-        document.getElementById("rondaInfo").innerText = "Ronda: " + archivoMayor.ronda;
-
-        fetch(archivoMayor.archivo)
-          .then(res => res.text())
-          .then(text => {
             Papa.parse(text, {
               complete: function (results) {
                 processData(results.data);
               },
               skipEmptyLines: true
             });
-          });
 
-      } catch (err) {
-        console.error("Error cargando archivos CSV:", err);
-        document.getElementById("rondaInfo").innerText = "Error al cargar la ronda.";
+            archivoEncontrado = nombreArchivo;
+            break;
+          }
+        } catch (e) {
+          // ignorar y continuar
+        }
+      }
+
+      if (!archivoEncontrado) {
+        document.getElementById("rondaInfo").innerText = "No se encontró ningún archivo de ronda.";
       }
     }
 
