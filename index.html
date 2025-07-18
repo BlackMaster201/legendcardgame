@@ -4,99 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yu-Gi-Oh! Regional Qualifier 2025</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" defer></script>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #121326;
       color: #fff;
-      padding: 20px;
       margin: 0;
+      padding: 20px;
     }
-
     header {
       background-color: #1f1f3d;
       padding: 20px;
       text-align: center;
       border-radius: 10px;
     }
-
-    h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    h2 {
-      margin: 10px 0 0;
-      font-size: 20px;
-      color: #ccc;
-    }
-
+    h1 { margin: 0; font-size: 28px; }
+    h2 { margin: 10px 0 0; font-size: 20px; color: #ccc; }
     .container {
       margin-top: 20px;
       background: #202045;
       padding: 20px;
       border-radius: 8px;
     }
-
     input[type="text"] {
-      margin: 10px 0;
+      margin-top: 10px;
       padding: 10px;
       border: none;
       border-radius: 6px;
       width: 100%;
       font-size: 16px;
     }
-
     .table-responsive {
       width: 100%;
       overflow-x: auto;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
       min-width: 600px;
     }
-
     th, td {
       border: 1px solid #444;
       padding: 8px;
       text-align: center;
       font-size: 14px;
     }
-
-    th {
-      background-color: #303060;
-    }
-
-    tr:hover {
-      background-color: #3c3c6f;
-    }
-
-    #tableContainer:empty {
-      display: none;
-    }
-
+    th { background-color: #303060; }
+    tr:hover { background-color: #3c3c6f; }
+    #tableContainer:empty { display: none; }
     @media (max-width: 600px) {
-      h1 {
-        font-size: 20px;
-      }
-
-      h2 {
-        font-size: 16px;
-      }
-
-      th, td {
-        font-size: 12px;
-        padding: 6px;
-      }
-
-      table {
-        min-width: 100%;
-        font-size: 12px;
-      }
+      h1 { font-size: 20px; }
+      h2 { font-size: 16px; }
+      th, td { font-size: 12px; padding: 6px; }
+      table { min-width: 100%; font-size: 12px; }
     }
   </style>
 </head>
@@ -107,7 +69,7 @@
   </header>
 
   <div class="container">
-    <input type="text" id="searchID" placeholder="Busca tu Konami ID aquí...">
+    <input type="text" id="searchID" placeholder="Ingresa tu Konami ID (10 dígitos)" maxlength="10" pattern="[0-9]*" inputmode="numeric">
     <div class="table-responsive">
       <div id="tableContainer"></div>
     </div>
@@ -117,45 +79,35 @@
     let fullData = [];
 
     function extractNameAndID(text) {
-      const id = (text.match(/\((\d+)\)/) || [])[1] || "";
-      const name = text.replace(/\s*\(\d+\)/, "").trim();
+      const match = text.match(/\((\d{10})\)/);
+      const id = match ? match[1] : "";
+      const name = text.replace(/\s*\(\d{10}\)/, "").trim();
       return { name, id };
     }
 
     function processData(data) {
-      fullData = [];
-
-      for (let i = 1; i < data.length; i++) {
-        const row = data[i];
-        if (!row || row.length < 4) continue;
-
+      fullData = data.slice(1).map(row => {
+        if (!row || row.length < 4) return null;
         const mesa = row[0];
         const p1 = extractNameAndID(row[1] || "");
         const p2 = extractNameAndID(row[3] || "");
-
-        fullData.push({
-          mesa,
-          name1: p1.name,
-          id1: p1.id,
-          name2: p2.name,
-          id2: p2.id
-        });
-      }
+        return { mesa, ...p1, name2: p2.name, id2: p2.id };
+      }).filter(Boolean);
 
       const saved = localStorage.getItem("lastKonamiID");
-      if (saved) {
+      if (saved && /^[0-9]{10}$/.test(saved)) {
         document.getElementById("searchID").value = saved;
         filterByID(saved);
       }
     }
 
     function displayTable(data) {
-      if (data.length === 0) {
-        document.getElementById('tableContainer').innerHTML = "<p>No se encontró ese Konami ID.</p>";
+      if (!data || data.length === 0) {
+        document.getElementById("tableContainer").innerHTML = "<p>No se encontró ese Konami ID.</p>";
         return;
       }
 
-      let html = `
+      const html = `
         <table>
           <thead>
             <tr>
@@ -167,74 +119,54 @@
             </tr>
           </thead>
           <tbody>
-      `;
-
-      data.forEach(row => {
-        html += `
-          <tr>
-            <td>${row.mesa}</td>
-            <td>${row.id1}</td>
-            <td>${row.name1}</td>
-            <td>${row.id2}</td>
-            <td>${row.name2}</td>
-          </tr>
-        `;
-      });
-
-      html += '</tbody></table>';
-      document.getElementById('tableContainer').innerHTML = html;
+            <tr>
+              <td>${data[0].mesa}</td>
+              <td>${data[0].id}</td>
+              <td>${data[0].name}</td>
+              <td>${data[0].id2}</td>
+              <td>${data[0].name2}</td>
+            </tr>
+          </tbody>
+        </table>`;
+      document.getElementById("tableContainer").innerHTML = html;
     }
 
     function filterByID(id) {
-      const filtered = fullData.filter(row =>
-        row.id1.includes(id) || row.id2.includes(id)
-      );
-      displayTable(filtered);
-    }
-
-    document.getElementById('searchID').addEventListener('input', function () {
-      const query = this.value.trim();
-      localStorage.setItem("lastKonamiID", query);
-
-      if (!query) {
+      if (!/^\d{10}$/.test(id)) {
         document.getElementById("tableContainer").innerHTML = "";
         return;
       }
 
-      filterByID(query);
+      const match = fullData.find(row => row.id === id || row.id2 === id);
+      localStorage.setItem("lastKonamiID", id);
+      displayTable(match ? [match] : []);
+    }
+
+    document.getElementById('searchID').addEventListener('input', function () {
+      const input = this.value.replace(/\D/g, "").slice(0, 10);
+      this.value = input;
+      if (input.length === 10) filterByID(input);
+      else document.getElementById("tableContainer").innerHTML = "";
     });
 
-    // 🔁 Buscar el archivo Ronda con el número más alto (Ronda-20.csv, ..., Ronda-1.csv)
     async function buscarArchivoConRondaMasAlta() {
       const maxRondas = 20;
-      let archivoEncontrado = null;
-
       for (let i = maxRondas; i >= 1; i--) {
-        const nombreArchivo = `Ronda-${i}.csv`;
+        const archivo = `Ronda-${i}.csv`;
         try {
-          const res = await fetch(nombreArchivo);
+          const res = await fetch(archivo);
           if (res.ok) {
-            const text = await res.text();
             document.getElementById("rondaInfo").innerText = "Ronda: " + i;
-
+            const text = await res.text();
             Papa.parse(text, {
-              complete: function (results) {
-                processData(results.data);
-              },
+              complete: results => processData(results.data),
               skipEmptyLines: true
             });
-
-            archivoEncontrado = nombreArchivo;
-            break;
+            return;
           }
-        } catch (e) {
-          // ignorar y continuar
-        }
+        } catch (e) { /* intentar siguiente */ }
       }
-
-      if (!archivoEncontrado) {
-        document.getElementById("rondaInfo").innerText = "No se encontró ningún archivo de ronda.";
-      }
+      document.getElementById("rondaInfo").innerText = "No se encontró ningún archivo de ronda.";
     }
 
     buscarArchivoConRondaMasAlta();
