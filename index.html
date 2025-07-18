@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Emparejamientos del Torneo - Yu-Gi-Oh!</title>
+  <title>Yu-Gi-Oh! Regional Qualifier 2025</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
     body {
@@ -23,6 +23,12 @@
     h1 {
       margin: 0;
       font-size: 28px;
+    }
+
+    #roundNumber {
+      font-size: 18px;
+      color: #aaa;
+      margin-top: 5px;
     }
 
     .container {
@@ -68,7 +74,8 @@
 </head>
 <body>
   <header>
-    <h1>Emparejamientos del Torneo Yu-Gi-Oh!</h1>
+    <h1>Yu-Gi-Oh! Regional Qualifier 2025</h1>
+    <div id="roundNumber">Ronda desconocida</div>
   </header>
 
   <div class="container">
@@ -167,21 +174,46 @@
       filterByID(query);
     });
 
-    // Cargar automáticamente el archivo "Ronda.csv" de la misma carpeta
-    fetch("Ronda.csv")
-      .then(response => response.text())
-      .then(text => {
-        Papa.parse(text, {
-          complete: function(results) {
-            processData(results.data);
-          },
-          skipEmptyLines: true
-        });
-      })
-      .catch(error => {
-        console.error("Error cargando Ronda.csv:", error);
-        document.getElementById("tableContainer").innerHTML = "<p>Error al cargar el archivo Ronda.csv</p>";
-      });
+    // 🔁 Buscar automáticamente el primer archivo .csv en la carpeta (simulado)
+    async function findCSVandLoad() {
+      // 👇 Esta línea debe ser personalizada si estás usando Live Server o similar
+      const possibleFiles = [
+        "Ronda-1.csv",
+        "Ronda-2.csv",
+        "Ronda-3.csv",
+        "Ronda-4.csv",
+        "Ronda-5.csv"
+      ];
+
+      for (const filename of possibleFiles) {
+        try {
+          const response = await fetch(filename);
+          if (response.ok) {
+            const text = await response.text();
+
+            // Detectar número de ronda desde el nombre del archivo
+            const match = filename.match(/Ronda-(\d+)/i);
+            if (match) {
+              document.getElementById("roundNumber").textContent = `Ronda ${match[1]}`;
+            }
+
+            Papa.parse(text, {
+              complete: function(results) {
+                processData(results.data);
+              },
+              skipEmptyLines: true
+            });
+
+            break; // Detiene la búsqueda al encontrar un archivo válido
+          }
+        } catch (error) {
+          // Continúa intentando otros archivos si falla
+        }
+      }
+    }
+
+    // Ejecutar al cargar
+    findCSVandLoad();
   </script>
 </body>
 </html>
