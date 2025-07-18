@@ -11,6 +11,7 @@
       background-color: #121326;
       color: #fff;
       padding: 20px;
+      margin: 0;
     }
 
     header {
@@ -25,10 +26,10 @@
       font-size: 28px;
     }
 
-    #roundNumber {
-      font-size: 18px;
-      color: #aaa;
-      margin-top: 5px;
+    h2 {
+      margin: 10px 0 0;
+      font-size: 20px;
+      color: #ccc;
     }
 
     .container {
@@ -47,16 +48,23 @@
       font-size: 16px;
     }
 
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
+      min-width: 600px;
     }
 
     th, td {
       border: 1px solid #444;
       padding: 8px;
       text-align: center;
+      font-size: 14px;
     }
 
     th {
@@ -70,17 +78,39 @@
     #tableContainer:empty {
       display: none;
     }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+
+      th, td {
+        font-size: 12px;
+        padding: 6px;
+      }
+
+      table {
+        min-width: 100%;
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Yu-Gi-Oh! Regional Qualifier 2025</h1>
-    <div id="roundNumber">Ronda desconocida</div>
+    <h2 id="rondaInfo">Cargando ronda...</h2>
   </header>
 
   <div class="container">
     <input type="text" id="searchID" placeholder="Busca tu Konami ID aquí...">
-    <div id="tableContainer"></div>
+    <div class="table-responsive">
+      <div id="tableContainer"></div>
+    </div>
   </div>
 
   <script>
@@ -162,7 +192,7 @@
       displayTable(filtered);
     }
 
-    document.getElementById('searchID').addEventListener('input', function() {
+    document.getElementById('searchID').addEventListener('input', function () {
       const query = this.value.trim();
       localStorage.setItem("lastKonamiID", query);
 
@@ -174,46 +204,43 @@
       filterByID(query);
     });
 
-    // 🔁 Buscar automáticamente el primer archivo .csv en la carpeta (simulado)
-    async function findCSVandLoad() {
-      // 👇 Esta línea debe ser personalizada si estás usando Live Server o similar
-      const possibleFiles = [
-        "Ronda-1.csv",
-        "Ronda-2.csv",
-        "Ronda-3.csv",
-        "Ronda-4.csv",
-        "Ronda-5.csv"
-      ];
+    // ✅ Buscar el archivo Ronda con número más alto
+    async function buscarArchivoConRondaMasAlta() {
+      try {
+        const archivos = await fetch(".").then(res => res.text());
 
-      for (const filename of possibleFiles) {
-        try {
-          const response = await fetch(filename);
-          if (response.ok) {
-            const text = await response.text();
+        // Buscar archivos tipo Ronda-1.csv, Ronda-2.csv, etc.
+        const coincidencias = [...archivos.matchAll(/Ronda-(\d+)\.csv/g)];
+        if (coincidencias.length === 0) {
+          document.getElementById("rondaInfo").innerText = "No se encontró archivo Ronda-*.csv";
+          return;
+        }
 
-            // Detectar número de ronda desde el nombre del archivo
-            const match = filename.match(/Ronda-(\d+)/i);
-            if (match) {
-              document.getElementById("roundNumber").textContent = `Ronda ${match[1]}`;
-            }
+        // Elegir el de mayor número
+        const archivoMayor = coincidencias
+          .map(m => ({ archivo: m[0], ronda: parseInt(m[1]) }))
+          .sort((a, b) => b.ronda - a.ronda)[0];
 
+        document.getElementById("rondaInfo").innerText = "Ronda: " + archivoMayor.ronda;
+
+        fetch(archivoMayor.archivo)
+          .then(res => res.text())
+          .then(text => {
             Papa.parse(text, {
-              complete: function(results) {
+              complete: function (results) {
                 processData(results.data);
               },
               skipEmptyLines: true
             });
+          });
 
-            break; // Detiene la búsqueda al encontrar un archivo válido
-          }
-        } catch (error) {
-          // Continúa intentando otros archivos si falla
-        }
+      } catch (err) {
+        console.error("Error cargando archivos CSV:", err);
+        document.getElementById("rondaInfo").innerText = "Error al cargar la ronda.";
       }
     }
 
-    // Ejecutar al cargar
-    findCSVandLoad();
+    buscarArchivoConRondaMasAlta();
   </script>
 </body>
 </html>
