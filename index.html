@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yu-Gi-Oh! Regional Qualifier 2025</title>
+  <title>Emparejamientos del Torneo - Yu-Gi-Oh!</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
     body {
@@ -32,7 +32,6 @@
       border-radius: 8px;
     }
 
-    input[type="file"],
     input[type="text"] {
       margin: 10px 0;
       padding: 10px;
@@ -69,22 +68,21 @@
 </head>
 <body>
   <header>
-    <h1>Yu-Gi-Oh! Regional Qualifier 2025</h1>
+    <h1>Emparejamientos del Torneo Yu-Gi-Oh!</h1>
   </header>
 
   <div class="container">
-    <input type="file" id="csvFile" accept=".csv">
-    <input type="text" id="searchCOSSY" placeholder="Busca tu COSSY aquí...">
+    <input type="text" id="searchID" placeholder="Busca tu Konami ID aquí...">
     <div id="tableContainer"></div>
   </div>
 
   <script>
     let fullData = [];
 
-    function extractNameAndCOSSY(text) {
-      const cossy = (text.match(/\((\d+)\)/) || [])[1] || "";
+    function extractNameAndID(text) {
+      const id = (text.match(/\((\d+)\)/) || [])[1] || "";
       const name = text.replace(/\s*\(\d+\)/, "").trim();
-      return { name, cossy };
+      return { name, id };
     }
 
     function processData(data) {
@@ -95,29 +93,28 @@
         if (!row || row.length < 4) continue;
 
         const mesa = row[0];
-        const p1Data = extractNameAndCOSSY(row[1] || "");
-        const p2Data = extractNameAndCOSSY(row[3] || "");
+        const p1 = extractNameAndID(row[1] || "");
+        const p2 = extractNameAndID(row[3] || "");
 
         fullData.push({
           mesa,
-          name1: p1Data.name,
-          cossy1: p1Data.cossy,
-          name2: p2Data.name,
-          cossy2: p2Data.cossy
+          name1: p1.name,
+          id1: p1.id,
+          name2: p2.name,
+          id2: p2.id
         });
       }
 
-      // Si hay un COSSY guardado en memoria, mostrar solo su duelo
-      const savedCossy = localStorage.getItem("lastCossy");
-      if (savedCossy) {
-        document.getElementById("searchCOSSY").value = savedCossy;
-        filterByCossy(savedCossy);
+      const saved = localStorage.getItem("lastKonamiID");
+      if (saved) {
+        document.getElementById("searchID").value = saved;
+        filterByID(saved);
       }
     }
 
     function displayTable(data) {
       if (data.length === 0) {
-        document.getElementById('tableContainer').innerHTML = "<p>No se encontró ese COSSY en la lista.</p>";
+        document.getElementById('tableContainer').innerHTML = "<p>No se encontró ese Konami ID.</p>";
         return;
       }
 
@@ -126,10 +123,10 @@
           <thead>
             <tr>
               <th>Mesa</th>
-              <th>COSSY Jugador</th>
+              <th>Konami ID Jugador</th>
               <th>Jugador</th>
-              <th>COSSY Adversario</th>
-              <th>Adversario</th>
+              <th>Konami ID Jugador</th>
+              <th>Jugador</th>
             </tr>
           </thead>
           <tbody>
@@ -139,9 +136,9 @@
         html += `
           <tr>
             <td>${row.mesa}</td>
-            <td>${row.cossy1}</td>
+            <td>${row.id1}</td>
             <td>${row.name1}</td>
-            <td>${row.cossy2}</td>
+            <td>${row.id2}</td>
             <td>${row.name2}</td>
           </tr>
         `;
@@ -151,37 +148,40 @@
       document.getElementById('tableContainer').innerHTML = html;
     }
 
-    function filterByCossy(cossy) {
+    function filterByID(id) {
       const filtered = fullData.filter(row =>
-        row.cossy1.includes(cossy) || row.cossy2.includes(cossy)
+        row.id1.includes(id) || row.id2.includes(id)
       );
       displayTable(filtered);
     }
 
-    document.getElementById('csvFile').addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      Papa.parse(file, {
-        complete: function(results) {
-          processData(results.data);
-        },
-        encoding: "utf-8",
-        skipEmptyLines: true
-      });
-    });
-
-    document.getElementById('searchCOSSY').addEventListener('input', function() {
+    document.getElementById('searchID').addEventListener('input', function() {
       const query = this.value.trim();
-      localStorage.setItem("lastCossy", query);
+      localStorage.setItem("lastKonamiID", query);
 
       if (!query) {
         document.getElementById("tableContainer").innerHTML = "";
         return;
       }
 
-      filterByCossy(query);
+      filterByID(query);
     });
+
+    // Cargar automáticamente el archivo "Ronda.csv" de la misma carpeta
+    fetch("Ronda.csv")
+      .then(response => response.text())
+      .then(text => {
+        Papa.parse(text, {
+          complete: function(results) {
+            processData(results.data);
+          },
+          skipEmptyLines: true
+        });
+      })
+      .catch(error => {
+        console.error("Error cargando Ronda.csv:", error);
+        document.getElementById("tableContainer").innerHTML = "<p>Error al cargar el archivo Ronda.csv</p>";
+      });
   </script>
 </body>
 </html>
