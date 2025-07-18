@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yu-Gi-Oh! Regional Qualifer 2025</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121326;
+      color: #fff;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #1f1f3d;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .container {
+      margin-top: 20px;
+      background: #202045;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #444;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #303060;
+    }
+
+    tr:hover {
+      background-color: #3c3c6f;
+    }
+
+    #tableContainer:empty {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Yu-Gi-Oh! Regional Qualifer 2025</h1>
+  </header>
+
+  <div class="container">
+    <input type="file" id="csvFile" accept=".csv">
+    <input type="text" id="searchCOSSY" placeholder="Busca tu COSSY aquí...">
+    <div id="tableContainer"></div>
+  </div>
+
+  <script>
+    let fullData = [];
+
+    function extractNameAndCOSSY(text) {
+      const cossy = (text.match(/\((\d+)\)/) || [])[1] || "";
+      const name = text.replace(/\s*\(\d+\)/, "").trim();
+      return { name, cossy };
+    }
+
+    function processData(data) {
+      fullData = [];
+
+      for (let i = 1; i < data.length; i++) {
+        const row = data[i];
+        if (!row || row.length < 4) continue;
+
+        const mesa = row[0];
+        const p1Data = extractNameAndCOSSY(row[1] || "");
+        const p2Data = extractNameAndCOSSY(row[3] || "");
+
+        fullData.push({
+          mesa,
+          name1: p1Data.name,
+          cossy1: p1Data.cossy,
+          name2: p2Data.name,
+          cossy2: p2Data.cossy
+        });
+      }
+
+      // Si hay un COSSY guardado en memoria, mostrar solo su duelo
+      const savedCossy = localStorage.getItem("lastCossy");
+      if (savedCossy) {
+        document.getElementById("searchCOSSY").value = savedCossy;
+        filterByCossy(savedCossy);
+      }
+    }
+
+    function displayTable(data) {
+      if (data.length === 0) {
+        document.getElementById('tableContainer').innerHTML = "<p>No se encontró ese COSSY en la lista.</p>";
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Mesa</th>
+              <th>COSSY Jugador</th>
+              <th>Jugador</th>
+              <th>COSSY Adversario</th>
+              <th>Adversario</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      data.forEach(row => {
+        html += `
+          <tr>
+            <td>${row.mesa}</td>
+            <td>${row.cossy1}</td>
+            <td>${row.name1}</td>
+            <td>${row.cossy2}</td>
+            <td>${row.name2}</td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      document.getElementById('tableContainer').innerHTML = html;
+    }
+
+    function filterByCossy(cossy) {
+      const filtered = fullData.filter(row =>
+        row.cossy1.includes(cossy) || row.cossy2.includes(cossy)
+      );
+      displayTable(filtered);
+    }
+
+    document.getElementById('csvFile').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      Papa.parse(file, {
+        complete: function(results) {
+          processData(results.data);
+        },
+        encoding: "utf-8",
+        skipEmptyLines: true
+      });
+    });
+
+    document.getElementById('searchCOSSY').addEventListener('input', function() {
+      const query = this.value.trim();
+      localStorage.setItem("lastCossy", query);
+
+      if (!query) {
+        document.getElementById("tableContainer").innerHTML = "";
+        return;
+      }
+
+      filterByCossy(query);
+    });
+  </script>
+</body>
+</html>
