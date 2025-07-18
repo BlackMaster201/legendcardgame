@@ -103,7 +103,7 @@
 
     function displayTable(data) {
       if (!data || data.length === 0) {
-        document.getElementById("tableContainer").innerHTML = "<p>No se encontró ese Konami ID.</p>";
+        document.getElementById('tableContainer').innerHTML = "<p>No se encontró ese Konami ID.</p>";
         return;
       }
 
@@ -155,16 +155,17 @@
         const archivo = `Ronda-${i}.csv`;
         try {
           const res = await fetch(archivo);
-          if (res.ok) {
-            document.getElementById("rondaInfo").innerText = "Ronda: " + i;
-            const text = await res.text();
-            Papa.parse(text, {
-              complete: results => processData(results.data),
-              skipEmptyLines: true
-            });
-            return;
-          }
-        } catch (e) { /* intentar siguiente */ }
+          if (!res.ok) continue;
+          const text = await res.text();
+          document.getElementById("rondaInfo").innerText = "Ronda: " + i;
+          Papa.parse(text, {
+            complete: results => processData(results.data),
+            skipEmptyLines: true
+          });
+          return;
+        } catch (e) {
+          // Silenciado para evitar errores visibles
+        }
       }
       document.getElementById("rondaInfo").innerText = "No se encontró ningún archivo de ronda.";
     }
