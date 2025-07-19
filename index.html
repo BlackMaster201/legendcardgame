@@ -105,13 +105,13 @@
   <script>
     let fullData = [];
 
-    function extractNameAndID(text) {
-  const clean = text.replace(/["']/g, "").trim(); // limpia comillas y espacios
+function extractNameAndID(text) {
+  const clean = text.replace(/["']/g, "").trim(); // quita comillas
   const match = clean.match(/\((\d{10})\)/);
   const id = match ? match[1] : "";
   const name = clean.replace(/\s*\(\d{10}\)/, "").trim();
   return { name, id };
-  }
+}
 }
 
     function processData(data) {
@@ -119,7 +119,7 @@
         if (!row || row.length < 4) return null;
         const mesa = row[0];
         const p1 = extractNameAndID(row[1] || "");
-        const p2 = extractNameAndID(row[3] || "");
+        const p2 = extractNameAndID(row[5] || "");
         return { mesa, ...p1, name2: p2.name, id2: p2.id };
       }).filter(Boolean);
 
