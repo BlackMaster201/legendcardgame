@@ -35,30 +35,16 @@
       width: 100%;
       font-size: 16px;
     }
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      min-width: 600px;
-    }
-    th, td {
-      border: 1px solid #444;
-      padding: 8px;
+    #tableContainer p {
+      font-size: 16px;
       text-align: center;
-      font-size: 14px;
+      margin-top: 20px;
     }
-    th { background-color: #303060; }
-    tr:hover { background-color: #3c3c6f; }
-    #tableContainer:empty { display: none; }
     @media (max-width: 600px) {
-      h1 { font-size: 20px; }
+      h1 { font-size: 22px; }
       h2 { font-size: 16px; }
-      th, td { font-size: 12px; padding: 6px; }
-      table { min-width: 100%; font-size: 12px; }
+      input[type="text"] { font-size: 14px; }
+      #tableContainer h2 { font-size: 24px; }
     }
   </style>
 </head>
@@ -70,9 +56,7 @@
 
   <div class="container">
     <input type="text" id="searchID" placeholder="Ingresa tu Konami ID (10 dígitos)" maxlength="10" pattern="[0-9]*" inputmode="numeric">
-    <div class="table-responsive">
-      <div id="tableContainer"></div>
-    </div>
+    <div id="tableContainer"></div>
   </div>
 
   <script>
@@ -102,33 +86,39 @@
     }
 
     function displayTable(data) {
+      const container = document.getElementById("tableContainer");
+
       if (!data || data.length === 0) {
-        document.getElementById('tableContainer').innerHTML = "<p>No se encontró ese Konami ID.</p>";
+        container.innerHTML = "<p>No se encontró ese Konami ID.</p>";
         return;
       }
 
-      const html = `
-        <table>
-          <thead>
-            <tr>
-              <th>Mesa</th>
-              <th>Konami ID</th>
-              <th>Jugador</th>
-              <th>Konami ID</th>
-              <th>Jugador</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>${data[0].mesa}</td>
-              <td>${data[0].id}</td>
-              <td>${data[0].name}</td>
-              <td>${data[0].id2}</td>
-              <td>${data[0].name2}</td>
-            </tr>
-          </tbody>
-        </table>`;
-      document.getElementById("tableContainer").innerHTML = html;
+      const jugador = data[0];
+      const esJugador1 = jugador.id === document.getElementById("searchID").value;
+      const miID = esJugador1 ? jugador.id : jugador.id2;
+      const miNombre = esJugador1 ? jugador.name : jugador.name2;
+      const rivalID = esJugador1 ? jugador.id2 : jugador.id;
+      const rivalNombre = esJugador1 ? jugador.name2 : jugador.name;
+
+      container.innerHTML = `
+        <div style="text-align:center; margin-bottom: 20px;">
+          <h2 style="font-size: 32px; color: #00ffcc;">Mesa ${jugador.mesa}</h2>
+        </div>
+
+        <div style="background:#2b2b50; border-radius:10px; padding:15px; margin-bottom:10px;">
+          <h3 style="margin-bottom:5px; color:#ffffff;">🧍‍♂️ Jugador</h3>
+          <p style="margin:4px 0;"><strong>Konami ID:</strong> ${miID}</p>
+          <p style="margin:4px 0;"><strong>Nombre:</strong> ${miNombre}</p>
+        </div>
+
+        <div style="text-align:center; font-size: 22px; margin: 10px 0;">🆚</div>
+
+        <div style="background:#1f1f3d; border-radius:10px; padding:15px;">
+          <h3 style="margin-bottom:5px; color:#ffffff;">👤 Adversario</h3>
+          <p style="margin:4px 0;"><strong>Konami ID:</strong> ${rivalID}</p>
+          <p style="margin:4px 0;"><strong>Nombre:</strong> ${rivalNombre}</p>
+        </div>
+      `;
     }
 
     function filterByID(id) {
@@ -164,7 +154,7 @@
           });
           return;
         } catch (e) {
-          // Silenciado para evitar errores visibles
+          // Silenciado
         }
       }
       document.getElementById("rondaInfo").innerText = "No se encontró ningún archivo de ronda.";
