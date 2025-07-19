@@ -105,18 +105,17 @@
   <script>
     let fullData = [];
 
-function extractNameAndID(text) {
-  const clean = text.replace(/["']/g, "").trim(); // quita comillas
-  const match = clean.match(/\((\d{10})\)/);
-  const id = match ? match[1] : "";
-  const name = clean.replace(/\s*\(\d{10}\)/, "").trim();
-  return { name, id };
-}
-}
+    function extractNameAndID(text) {
+      const clean = text.replace(/["']/g, "").trim();
+      const match = clean.match(/\((\d{10})\)/);
+      const id = match ? match[1] : "";
+      const name = clean.replace(/\s*\(\d{10}\)/, "").trim();
+      return { name, id };
+    }
 
     function processData(data) {
       fullData = data.slice(1).map(row => {
-        if (!row || row.length < 4) return null;
+        if (!row || row.length < 6) return null;
         const mesa = row[0];
         const p1 = extractNameAndID(row[1] || "");
         const p2 = extractNameAndID(row[5] || "");
@@ -169,7 +168,7 @@ function extractNameAndID(text) {
     }
 
     function filterByID(id) {
-      if (!/^\\d{10}$/.test(id)) {
+      if (!/^\d{10}$/.test(id)) {
         document.getElementById("tableContainer").innerHTML = "";
         return;
       }
@@ -180,7 +179,7 @@ function extractNameAndID(text) {
     }
 
     document.getElementById('searchID').addEventListener('input', function () {
-      const input = this.value.replace(/\\D/g, "").slice(0, 10);
+      const input = this.value.replace(/\D/g, "").slice(0, 10);
       this.value = input;
       if (input.length === 10) filterByID(input);
       else document.getElementById("tableContainer").innerHTML = "";
