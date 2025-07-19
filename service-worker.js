@@ -1,37 +1,55 @@
-const CACHE_NAME = 'ygo-pairings-v1';
-const urlsToCache = [
-  './',
-  './index.html',
-  './LCG.png',
-  './manifest.json',
-  'https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js'
+const CACHE_NAME = "ygo-cache-v1";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./LCG.png",
+  "https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
   );
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', event => {
-  if (event.request.url.includes('Ronda-') && event.request.url.endsWith('.csv')) {
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.map(key => {
+        if (key !== CACHE_NAME) {
+          return caches.delete(key);
+        }
+      }))
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", event => {
+  const request = event.request;
+  const url = new URL(request.url);
+
+  // 🔄 Solo cachea los archivos CSV que contienen "Ronda-"
+  if (url.pathname.includes("Ronda-") && url.pathname.endsWith(".csv")) {
     event.respondWith(
-      caches.match(event.request).then(response => {
-        return fetch(event.request).then(networkResponse => {
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        }).catch(() => response);
-      })
+      caches.open(CACHE_NAME).then(cache =>
+        fetch(request)
+          .then(response => {
+            if (response.ok) cache.put(request, response.clone());
+            return response;
+          })
+          .catch(() => cache.match(request))
+      )
     );
-  } else {
-    event.respondWith(
-      caches.match(event.request).then(response => {
-        return response || fetch(event.request);
-      })
-    );
+    return;
   }
+
+  // 🌐 Para todo lo demás, primero busca en caché
+  event.respondWith(
+    caches.match(request).then(cached =>
+      cached || fetch(request)
+    )
+  );
 });
