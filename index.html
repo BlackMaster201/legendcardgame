@@ -106,11 +106,13 @@
     let fullData = [];
 
     function extractNameAndID(text) {
-      const match = text.match(/\\((\\d{10})\\)/);
-      const id = match ? match[1] : "";
-      const name = text.replace(/\\s*\\(\\d{10}\\)/, "").trim();
-      return { name, id };
-    }
+  const clean = text.replace(/["']/g, "").trim(); // limpia comillas y espacios
+  const match = clean.match(/\((\d{10})\)/);
+  const id = match ? match[1] : "";
+  const name = clean.replace(/\s*\(\d{10}\)/, "").trim();
+  return { name, id };
+  }
+}
 
     function processData(data) {
       fullData = data.slice(1).map(row => {
