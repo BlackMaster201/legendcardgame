@@ -16,7 +16,8 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.url.includes('Ronda-')) {
+  // Manejar archivos CSV por separado (dinámicos)
+  if (event.request.url.includes('Ronda-') && event.request.url.endsWith('.csv')) {
     event.respondWith(
       caches.match(event.request).then(response => {
         return fetch(event.request).then(networkResponse => {
@@ -28,6 +29,7 @@ self.addEventListener('fetch', event => {
       })
     );
   } else {
+    // Cualquier otro archivo desde caché o red
     event.respondWith(
       caches.match(event.request).then(response => {
         return response || fetch(event.request);
