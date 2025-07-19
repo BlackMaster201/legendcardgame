@@ -115,10 +115,10 @@
 
     function processData(data) {
       fullData = data.slice(1).map(row => {
-        if (!row || row.length < 6) return null;
+        if (!row || row.length < 4) return null;
         const mesa = row[0];
         const p1 = extractNameAndID(row[1] || "");
-        const p2 = extractNameAndID(row[5] || "");
+        const p2 = extractNameAndID(row[3] || "");
         return { mesa, ...p1, name2: p2.name, id2: p2.id };
       }).filter(Boolean);
 
