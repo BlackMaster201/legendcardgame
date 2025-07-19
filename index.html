@@ -20,11 +20,6 @@
       color: #fff;
       margin: 0;
       padding: 20px;
-      
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: 80%;
-      background-attachment: fixed;
     }
     header {
       background-color: rgba(0, 0, 0, 0.8);
@@ -43,13 +38,10 @@
       color: #D3D3D3;
     }
     .container {
-  background-image: url('LCG.png');
-  background-repeat: no-repeat;
-  background-position: center 55%;
-  background-size: 70%;
-  background-attachment: local;
       margin-top: 20px;
-      background: rgba(30, 30, 30, 0.9);
+      background: rgba(30, 30, 30, 0.95) url('LCG.png') no-repeat center 55%;
+      background-size: 260px;
+      background-attachment: local;
       padding: 20px;
       border-radius: 8px;
     }
@@ -87,7 +79,14 @@
   </header>
 
   <div class="container">
-    <input type="text" id="searchID" placeholder="Ingresa tu Konami ID (10 dígitos)" maxlength="10" pattern="[0-9]*" inputmode="numeric">
+    <input
+      type="text"
+      id="searchID"
+      placeholder="Ingresa tu Konami ID (10 dígitos)"
+      maxlength="10"
+      pattern="[0-9]*"
+      inputmode="numeric"
+    />
     <div id="tableContainer"></div>
   </div>
 
@@ -95,9 +94,9 @@
     let fullData = [];
 
     function extractNameAndID(text) {
-      const match = text.match(/\((\d{10})\)/);
+      const match = text.match(/\\((\\d{10})\\)/);
       const id = match ? match[1] : "";
-      const name = text.replace(/\s*\(\d{10}\)/, "").trim();
+      const name = text.replace(/\\s*\\(\\d{10}\\)/, "").trim();
       return { name, id };
     }
 
@@ -156,7 +155,7 @@
     }
 
     function filterByID(id) {
-      if (!/^\d{10}$/.test(id)) {
+      if (!/^\\d{10}$/.test(id)) {
         document.getElementById("tableContainer").innerHTML = "";
         return;
       }
@@ -167,7 +166,7 @@
     }
 
     document.getElementById('searchID').addEventListener('input', function () {
-      const input = this.value.replace(/\D/g, "").slice(0, 10);
+      const input = this.value.replace(/\\D/g, "").slice(0, 10);
       this.value = input;
       if (input.length === 10) filterByID(input);
       else document.getElementById("tableContainer").innerHTML = "";
