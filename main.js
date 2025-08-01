@@ -1,35 +1,36 @@
-// Navegación entre vistas (inicio / apps)
-const homeBtn = document.getElementById('homeBtn');
-const preregBtn = document.getElementById('preregBtn');
-const otsBtn = document.getElementById('otsBtn');
-const regionalBtn = document.getElementById('regionalBtn');
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('sidebarToggle');
 
-const mainCards = document.getElementById('main-cards');
-const preregSection = document.getElementById('preregSection');
-const otsSection = document.getElementById('otsSection');
-const regionalSection = document.getElementById('regionalSection');
-
-function showSection(section) {
-  mainCards.style.display = section === 'main' ? 'flex' : 'none';
-  preregSection.style.display = section === 'prereg' ? 'block' : 'none';
-  otsSection.style.display = section === 'ots' ? 'block' : 'none';
-  regionalSection.style.display = section === 'regional' ? 'block' : 'none';
-
-  // Quitar todos los .active
-  document.querySelectorAll('.sidebar nav ul li a').forEach(a => a.classList.remove('active'));
-  if(section === 'main') homeBtn.classList.add('active');
-  if(section === 'prereg') preregBtn.classList.add('active');
-  if(section === 'ots') otsBtn.classList.add('active');
-  if(section === 'regional') regionalBtn.classList.add('active');
+function closeSidebarOnClickOutside(e) {
+  if (
+    sidebar &&
+    !sidebar.contains(e.target) &&
+    window.innerWidth <= 950 &&
+    sidebar.classList.contains('show')
+  ) {
+    sidebar.classList.remove('show');
+  }
 }
 
-// Clic en menú lateral
-homeBtn.onclick = e => { e.preventDefault(); showSection('main'); }
-preregBtn.onclick = e => { e.preventDefault(); showSection('prereg'); }
-otsBtn.onclick = e => { e.preventDefault(); showSection('ots'); }
-regionalBtn.onclick = e => { e.preventDefault(); showSection('regional'); }
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('show');
+});
 
-// Clic en cards
-document.getElementById('preregCard').onclick = () => showSection('prereg');
-document.getElementById('otsCard').onclick = () => showSection('ots');
-document.getElementById('regionalCard').onclick = () => showSection('regional');
+window.addEventListener('click', closeSidebarOnClickOutside);
+
+// Muestra el menú en móviles al cargar
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth <= 950) {
+    sidebar.classList.remove('show');
+  } else {
+    sidebar.classList.add('show');
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 950) {
+    sidebar.classList.add('show');
+  } else {
+    sidebar.classList.remove('show');
+  }
+});
