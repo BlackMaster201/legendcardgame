@@ -210,3 +210,13 @@ footer button.active {
     padding: 10px;
   }
 }
+.aviso-previo {
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 60px;
+  background: rgba(0,0,0,0.70);
+  padding: 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 16px #0008;
+}
