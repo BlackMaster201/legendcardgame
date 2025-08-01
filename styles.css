@@ -51,12 +51,10 @@ main {
   text-align: center;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
-  /* BORDES QUITADOS: */
-  /* border-top: 8px solid var(--color-red);
-     border-bottom: 8px solid var(--color-blue); */
   color: var(--color-white);
   font-size: 1.1rem;
   font-weight: 500;
+  /* Elimina las líneas rojas y azules del card */
 }
 
 .card:hover {
@@ -105,16 +103,12 @@ footer {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  transform: translateX(0);
+  /* Elimina líneas rojas y azules */
 }
 
 #sidebar.collapsed {
-  transform: translateX(-100%);
+  transform: translateX(-210px);
 }
-#sidebar.show {
-  transform: translateX(0);
-}
-
 .sidebar-header {
   display: flex;
   align-items: center;
@@ -173,20 +167,15 @@ footer {
   border-radius: 10px 0 0 10px;
   display: block;
   transition: background 0.14s, color 0.14s;
+  /* Sin líneas de color */
 }
 
 #sidebar nav ul li a.active,
 #sidebar nav ul li a:hover {
-  background: var(--color-red);
-  color: #fff;
+  background: #222;
+  color: var(--color-red);
 }
 
-/* Quita las líneas rojas y azules */
-#sidebar nav ul li a {
-  border: none;
-}
-
-/* Plegable en móvil */
 @media (max-width: 950px) {
   main {
     margin-left: 0;
@@ -194,13 +183,18 @@ footer {
   }
   #sidebar {
     width: 210px;
-    transform: translateX(-100%);
+    transform: translateX(-210px);
+    z-index: 2000;
   }
   #sidebar.show {
     transform: translateX(0);
   }
   #sidebarToggle {
     display: block;
+    position: absolute;
+    left: 165px;
+    top: 18px;
+    z-index: 10;
   }
 }
 
@@ -218,6 +212,17 @@ footer {
     font-size: 1em;
   }
   .background-logo {
-    background-size: 220px;
+    background-size: 170px;
+  }
+}
+
+@media (max-width: 500px) {
+  #sidebar {
+    width: 86vw;
+    min-width: 150px;
+    max-width: 96vw;
+  }
+  #sidebarToggle {
+    left: 63vw;
   }
 }
