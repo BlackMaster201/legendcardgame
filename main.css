@@ -1,120 +1,27 @@
-body {
-  background: #161616;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  display: flex;
-}
-.sidebar {
-  width: 230px;
-  background: #111;
-  min-height: 100vh;
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.4);
-}
-.logo {
-  width: 120px;
-  margin-bottom: 35px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 50%;
-}
-.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-  width: 100%;
-}
-.sidebar nav ul li {
-  width: 100%;
-}
-.sidebar nav ul li a {
-  display: block;
-  padding: 12px 0;
-  text-align: center;
-  color: #eee;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.2s, color 0.2s;
-}
-.sidebar nav ul li a.active,
-.sidebar nav ul li a:hover {
-  background: #D62828;
-  color: #fff;
-}
-main {
-  margin-left: 230px;
-  width: 100%;
-  min-height: 100vh;
-  padding: 40px 20px 20px 20px;
-  box-sizing: border-box;
-}
-.cards-container {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-.card {
-  background: #232323;
-  border-radius: 18px;
-  box-shadow: 0 2px 18px #0006;
-  padding: 34px 26px;
-  max-width: 330px;
-  flex: 1 1 330px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.12s;
-  border: 2px solid transparent;
-}
-.card:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 6px 30px #0009;
-  border-color: #D62828;
-}
-.card h2 {
-  color: #D62828;
-  margin-bottom: 18px;
-}
-.card p {
-  color: #D3D3D3;
-}
-.tool-section {
-  max-width: 800px;
-  margin: 40px auto;
-  background: #212121;
-  padding: 30px 20px 40px 20px;
-  border-radius: 18px;
-  box-shadow: 0 1px 10px #0008;
-}
-@media (max-width: 900px) {
-  .cards-container {
-    flex-direction: column;
-    gap: 24px;
-    height: auto;
-  }
-  .sidebar {
-    width: 100vw;
-    flex-direction: row;
-    align-items: flex-start;
-    position: static;
-    box-shadow: none;
-    min-height: unset;
-    padding-top: 15px;
-    height: auto;
-  }
-  .logo {
-    width: 70px;
-    margin-bottom: 0;
-    margin-right: 18px;
-  }
-  main {
-    margin-left: 0;
-    padding-top: 90px;
+// Menú plegable
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('sidebarToggle');
+
+function closeSidebarOnClickOutside(e) {
+  if (
+    sidebar &&
+    !sidebar.contains(e.target) &&
+    window.innerWidth <= 950 &&
+    sidebar.classList.contains('show')
+  ) {
+    sidebar.classList.remove('show');
   }
 }
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('show');
+});
+
+window.addEventListener('click', closeSidebarOnClickOutside);
+
+// Ajusta la visibilidad del menú al redimensionar
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 950) {
+    sidebar.classList.remove('show');
+  }
+});
