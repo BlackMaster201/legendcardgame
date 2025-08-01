@@ -1,4 +1,4 @@
-// Menú plegable
+// Menú plegable y siempre visible en móvil
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('sidebarToggle');
 
@@ -13,13 +13,13 @@ function closeSidebarOnClickOutside(e) {
   }
 }
 
-toggleBtn.addEventListener('click', () => {
+toggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   sidebar.classList.toggle('show');
 });
 
 window.addEventListener('click', closeSidebarOnClickOutside);
 
-// Ajusta la visibilidad del menú al redimensionar
 window.addEventListener('resize', () => {
   if (window.innerWidth > 950) {
     sidebar.classList.remove('show');
