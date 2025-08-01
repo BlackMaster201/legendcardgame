@@ -3,46 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Página Principal - Regional Puebla 2025</title>
+  <title>Legend Card Game - Principal</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <nav id="sidebar" class="sidebar">
+  <aside id="sidebar">
     <div class="sidebar-header">
-      <span class="close-btn" id="closeSidebar">&times;</span>
-      <h2>Menú</h2>
+      <img src="assets/LCG.png" alt="Logo LCG" class="sidebar-logo" />
+      <h2>Legend Card Game</h2>
+      <button id="sidebarToggle">&#9776;</button>
     </div>
-    <ul>
-      <li><a href="#" id="goHome">Inicio</a></li>
-      <li><a href="#" id="goPre">Preregistro Regional Puebla 2025</a></li>
-      <li><a href="#" id="goOTS">Pareos OTS Championship</a></li>
-      <li><a href="#" id="goRQ">Pareos Regional Qualifier Puebla 2025</a></li>
-    </ul>
-  </nav>
-  <div id="overlay"></div>
-
-  <header class="main-header">
-    <button id="openSidebar" class="menu-btn">&#9776;</button>
-    <h1>Página Principal</h1>
-  </header>
-
-  <main id="mainContent">
-    <div class="cards-container">
-      <div class="main-card" id="cardPre">
-        <h2>Preregistro<br>Regional Puebla 2025</h2>
-        <p>¡Asegura tu lugar y ahorra tiempo!</p>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="#">Preregistro Regional Puebla 2025</a></li>
+        <li><a href="#">Pareos OTS Championship</a></li>
+        <li><a href="#">Pareos Regional Qualifier Puebla 2025</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <div class="background-logo"></div>
+    <section class="cards">
+      <div class="card" onclick="window.location='#'">
+        <h3>Preregistro Regional Puebla 2025</h3>
+        <p>Preinscríbete para el evento Regional Puebla 2025.</p>
       </div>
-      <div class="main-card" id="cardOTS">
-        <h2>Pareos<br>OTS Championship</h2>
-        <p>Consulta los emparejamientos OTS.</p>
+      <div class="card" onclick="window.location='#'">
+        <h3>Pareos OTS Championship</h3>
+        <p>Consulta tus pareos para el OTS Championship.</p>
       </div>
-      <div class="main-card" id="cardRQ">
-        <h2>Pareos<br>Regional Qualifier Puebla 2025</h2>
-        <p>Consulta tus resultados y mesa.</p>
+      <div class="card" onclick="window.location='#'">
+        <h3>Pareos Regional Qualifier Puebla 2025</h3>
+        <p>Busca tus duelos y standing en el Regional Puebla 2025.</p>
       </div>
-    </div>
+    </section>
   </main>
-
-  <script src="script.js"></script>
+  <footer>
+    Legend Card Game &copy; 2025. Todos los derechos reservados.
+  </footer>
+  <script src="main.js"></script>
 </body>
 </html>
