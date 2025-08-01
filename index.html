@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legend Card Game - Inicio</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <img src="LCG.png" alt="Logo Legend Card Game" class="logo" />
+    <nav>
+      <ul>
+        <li><a href="#" id="homeBtn" class="active">Inicio</a></li>
+        <li><a href="#" id="preregBtn">Preregistro</a></li>
+        <li><a href="#" id="otsBtn">Pareo OTS</a></li>
+        <li><a href="#" id="regionalBtn">Pareo Regional</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <section id="main-cards" class="cards-container">
+      <div class="card" id="preregCard">
+        <h2>Preregistro Regional Puebla 2025</h2>
+        <p>¡Asegura tu lugar en el torneo regional más importante!</p>
+      </div>
+      <div class="card" id="otsCard">
+        <h2>Pareos OTS Championship</h2>
+        <p>Consulta tus emparejamientos del OTS Championship.</p>
+      </div>
+      <div class="card" id="regionalCard">
+        <h2>Pareos Regional Qualifier Puebla 2025</h2>
+        <p>Revisa tus emparejamientos del Regional Qualifier.</p>
+      </div>
+    </section>
+    <!-- Aquí van las subherramientas, inicialmente ocultas -->
+    <section id="preregSection" class="tool-section" style="display:none;">
+      <!-- Aquí pegarás el código de tu preregistro cuando esté listo -->
+      <h2>Preregistro Regional Puebla 2025</h2>
+      <p>Próximamente integración con formulario de preregistro.</p>
+    </section>
+    <section id="otsSection" class="tool-section" style="display:none;">
+      <!-- Aquí pegarás el código de tu sistema de pareos OTS -->
+      <h2>Pareos OTS Championship</h2>
+      <p>Aquí irá tu sistema de pareos para OTS.</p>
+    </section>
+    <section id="regionalSection" class="tool-section" style="display:none;">
+      <!-- Aquí pegarás el código de tu sistema de pareos Regional -->
+      <h2>Pareos Regional Qualifier Puebla 2025</h2>
+      <p>Aquí irá tu sistema de pareos para Regional.</p>
+    </section>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>
