@@ -1,47 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Legend Card Game - Principal</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legend Card Game Portal</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside id="sidebar" class="show">
+  <!-- Menú lateral -->
+  <nav id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <img src="assets/LCG.png" alt="Logo LCG" class="sidebar-logo" />
-      <h2>Legend Card Game</h2>
-      <button id="sidebarToggle">&#9776;</button>
+      <button id="sidebarToggle" class="sidebar-toggle" aria-label="Menú"><span>&#9776;</span></button>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Inicio</a></li>
-        <li><a href="#">Preregistro Regional Puebla 2025</a></li>
-        <li><a href="#">Pareos OTS Championship</a></li>
-        <li><a href="regional/index.html">Pareos Regional Qualifier Puebla 2025</a></li>
-      </ul>
-    </nav>
-  </aside>
-  <main>
-    <div class="background-logo"></div>
-    <section class="cards">
-      <div class="card" onclick="window.location='#'">
-        <h3>Preregistro Regional Puebla 2025</h3>
-        <p>Preinscríbete para el evento Regional Puebla 2025.</p>
+    <ul class="sidebar-list">
+      <li><a href="./" class="sidebar-link">Inicio</a></li>
+      <li><a href="./preregistro.html" class="sidebar-link">Preregistro Regional Puebla 2025</a></li>
+      <li><a href="./OTS/" class="sidebar-link">Pareos OTS Championship</a></li>
+      <li><a href="./regional/" class="sidebar-link">Pareos Regional Qualifier Puebla 2025</a></li>
+    </ul>
+  </nav>
+
+  <!-- Overlay para cerrar menú en móvil -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <main class="main-content">
+    <section class="cards-section">
+      <div class="card-option">
+        <h2>Preregistro Regional Puebla 2025</h2>
+        <p>Inscríbete para el evento Regional Puebla 2025.</p>
       </div>
-      <div class="card" onclick="window.location='#'">
-        <h3>Pareos OTS Championship</h3>
+      <div class="card-option" onclick="window.location.href='./OTS/'">
+        <h2>Pareos OTS Championship</h2>
         <p>Consulta tus pareos para el OTS Championship.</p>
       </div>
-      <div class="card" onclick="window.location='regional/index.html'">
-        <h3>Pareos Regional Qualifier Puebla 2025</h3>
-        <p>Busca tus duelos y standing en el Regional Puebla 2025.</p>
+      <div class="card-option" onclick="window.location.href='./regional/'">
+        <h2>Pareos Regional Qualifier Puebla 2025</h2>
+        <p>Consulta tus duelos y standing en el Regional Puebla 2025.</p>
       </div>
     </section>
+    <footer class="footer">
+      Legend Card Game © 2025. Todos los derechos reservados.
+    </footer>
   </main>
-  <footer>
-    Legend Card Game &copy; 2025. Todos los derechos reservados.
-  </footer>
-  <script src="main.js"></script>
+
+  <script>
+    // Toggle sidebar
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    sidebarToggle.onclick = () => {
+      sidebar.classList.toggle('active');
+      sidebarOverlay.classList.toggle('active');
+    };
+    sidebarOverlay.onclick = () => {
+      sidebar.classList.remove('active');
+      sidebarOverlay.classList.remove('active');
+    };
+    // Close on link click (for mobile)
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.onclick = () => {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+      };
+    });
+  </script>
 </body>
 </html>
