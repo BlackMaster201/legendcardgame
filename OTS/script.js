@@ -224,7 +224,7 @@ document.getElementById('btnHistorial').addEventListener('click', mostrarHistori
 
 // Botón buscar y Enter en input
 document.getElementById('buscarBtn').addEventListener('click', () => {
-  mostrarRonda();
+    window.location.reload();
 });
 document.getElementById('konamiId').addEventListener('keydown', function(e) {
   if (e.key === "Enter") {
