@@ -10,16 +10,38 @@ header {
   padding: 20px;
   background-color: rgba(0,0,0,0.80);
 }
+#mainTitle {
+  color: #d62828;
+  font-weight: bold;
+  margin: 0;
+}
+#rondaInfo {
+  margin: 0;
+}
 .container {
   position: relative;
   padding: 20px;
   min-height: 400px;
-  background: rgba(18,18,18,0.95) url('LCG.png') no-repeat center 65%;
-  background-size: 240px;
+  background: rgba(18,18,18,0.95);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+.container:after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: 250px;
+  height: 250px;
+  background: url('LCG.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.19;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 input[type="text"] {
   margin: 10px 0 20px 0;
@@ -30,6 +52,8 @@ input[type="text"] {
   font-size: 16px;
   text-align: center;
   border: none;
+  z-index: 1;
+  position: relative;
 }
 footer {
   position: fixed;
@@ -73,7 +97,10 @@ footer button.active {
   width: 100%;
   max-width: 400px;
   margin: 0 auto 20px auto;
+  position: relative;
+  z-index: 1;
 }
+
 .card {
   background: #1E1E1E;
   border-radius: 10px;
@@ -81,17 +108,37 @@ footer button.active {
   margin-bottom: 22px;
   text-align: center;
   box-shadow: 0 2px 12px #0003;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card .linea-roja {
+  height: 6px;
+  width: 100%;
+  background: #D62828;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 8px;
+}
+.card .linea-azul {
+  height: 6px;
+  width: 100%;
+  background: #007BFF;
+  border-radius: 0 0 10px 10px;
+  margin-top: 8px;
+  position: relative;
+  bottom: 0;
 }
 .card .mesa {
-  background: #D62828;
-  color: #fff;
   font-weight: bold;
-  border-radius: 8px 8px 0 0;
-  font-size: 1.3rem;
-  padding: 7px 0 5px 0;
-  margin: -14px -18px 16px -18px;
-  text-align: center;
-  letter-spacing: 2px;
+  font-size: 1.20rem;
+  color: #d62828;
+  margin-bottom: 12px;
+  margin-top: 8px;
+  letter-spacing: 1px;
+  background: none;
+  padding: 0;
 }
 .card .jugador {
   font-size: 1.16rem;
@@ -130,30 +177,46 @@ footer button.active {
   font-weight: normal;
   text-align: center;
 }
+
 .standing-box {
   font-weight: bold;
   margin-bottom: 12px;
   text-align: center;
   font-size: 1.10rem;
   color: #FFD700;
+  background: none;
 }
 .historial-caja {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   background: #23232a;
   border-radius: 10px;
   margin: 15px 0 18px 0;
   box-shadow: 0 2px 10px #0002;
-  padding: 14px 18px;
+  padding: 0 0 0 0;
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
+}
+.historial-barra {
+  width: 8px;
+  border-radius: 10px 0 0 10px;
+  margin-right: 12px;
+  min-height: 56px;
+}
+.historial-caja .contenido-historial {
+  padding: 14px 18px 14px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 .historial-caja .ronda-resultado {
   font-weight: bold;
-  margin-bottom: 0px;
   font-size: 1.10rem;
+  margin-bottom: 2px;
   text-align: left;
 }
 .historial-caja .vs-nombre {
@@ -166,3 +229,6 @@ footer button.active {
 .result-win { color: #4CAF50 !important; }
 .result-loss { color: #F44336 !important; }
 .result-draw { color: #B0BEC5 !important; }
+.historial-barra.result-win { background: #4CAF50; }
+.historial-barra.result-loss { background: #F44336; }
+.historial-barra.result-draw { background: #B0BEC5; }
