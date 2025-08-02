@@ -26,7 +26,7 @@ function ocultarMensajePersonalizado() {
 }
 
 async function cargarTorneo() {
-  const response = await fetch('1.txt');
+  const response = await fetch('1.txt', {cache: "reload"});
   const text = await response.text();
 
   // Si el archivo parece XML, parsea normalmente
@@ -37,15 +37,20 @@ async function cargarTorneo() {
     currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
     ocultarMensajePersonalizado();
-    buscarEmparejamientos();
+    buscarEmparejamientos(); // <<--- Aquí actualiza al buscar
   } else {
     // Si es texto plano, muestra como mensaje personalizado
+    tournamentData = null; // Limpiar para evitar búsqueda antigua
     document.getElementById('rondaInfo').textContent = '';
     mostrarMensajePersonalizado(text);
+    // Ocultar pareos/historial
+    document.getElementById('tableContainer').innerHTML = '';
+    document.getElementById('historyContainer').innerHTML = '';
   }
 }
 
 function getPlayerInfo(id) {
+  if (!tournamentData) return null;
   const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
   const playerNode = players.find(p => padId(p.querySelector('ID')?.textContent) === id);
   if (!playerNode) return null;
@@ -66,9 +71,9 @@ function getMedalla(standing) {
 }
 
 function getStandingColor(standing) {
-  if (parseInt(standing) === 1) return "#FFD700"; // oro
-  if (parseInt(standing) === 2) return "#B0C4DE"; // plata
-  if (parseInt(standing) === 3) return "#CD7F32"; // bronce
+  if (parseInt(standing) === 1) return "#FFD700";
+  if (parseInt(standing) === 2) return "#B0C4DE";
+  if (parseInt(standing) === 3) return "#CD7F32";
   return "#fff";
 }
 
@@ -77,11 +82,10 @@ function buscarEmparejamientos() {
   const input = padId(inputRaw);
   localStorage.setItem('konamiId', input);
 
+  // No hay torneo cargado
   if (!tournamentData || !input) return;
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
-  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
-
   let encontrado = false;
   let emparejamiento = null;
   let nombreJugador = '';
@@ -90,14 +94,14 @@ function buscarEmparejamientos() {
   let mesa = '';
   let standingJugador = '-';
 
-  // Buscar Standing y Nombre del jugador
+  // Standing y nombre jugador
   const infoJugador = getPlayerInfo(input);
   if (infoJugador) {
     nombreJugador = infoJugador.nombre;
     standingJugador = infoJugador.standing;
   }
 
-  // Buscar emparejamiento actual
+  // Emparejamiento actual
   for (const match of matches) {
     const round = parseInt(match.querySelector('Round')?.textContent || "0", 10);
     if (round !== currentRound) continue;
@@ -144,7 +148,6 @@ function mostrarHistorial(input, standing, nombreJugador) {
     return;
   }
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
-  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
 
   // Historial, de ronda más reciente a más antigua
   let historial = [];
@@ -225,7 +228,7 @@ document.getElementById('btnHistorial').addEventListener('click', () => {
 // BOTÓN DE BUSCAR Y ACTUALIZAR
 document.getElementById('btnBuscar').addEventListener('click', () => {
   cargarTorneo();
-  buscarEmparejamientos();
+  setTimeout(buscarEmparejamientos, 200); // Esperar que cargue el torneo y buscar
 });
 
 // Al cambiar el ID o al cargar la página
@@ -242,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('konamiId').addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       cargarTorneo();
-      buscarEmparejamientos();
+      setTimeout(buscarEmparejamientos, 200);
     }
   });
 });
