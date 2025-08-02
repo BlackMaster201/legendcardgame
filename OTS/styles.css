@@ -9,20 +9,19 @@ body {
 #logo-bg {
   position: fixed;
   z-index: 0;
-  opacity: 0.12;
-  width: 80vw;
-  max-width: 650px;
-  min-width: 280px;
+  opacity: 0.13;
+  width: 95vw;
+  max-width: 700px;
   left: 50%;
   top: 55%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
-h1, .titulo {
+.titulo, h1 {
   color: #e53935;
   text-align: center;
-  font-size: 2.8rem;
+  font-size: 2.7rem;
   font-weight: 900;
   margin: 32px 0 12px 0;
   letter-spacing: 1px;
@@ -33,12 +32,12 @@ h1, .titulo {
   text-align: center;
   font-size: 2.2rem;
   font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 #formulario {
   text-align: center;
-  margin-bottom: 22px;
+  margin-bottom: 10px;
 }
 
 #konamiId {
@@ -51,8 +50,8 @@ h1, .titulo {
   font-family: inherit;
   text-align: center;
   margin-bottom: 8px;
-  width: 70vw;
-  max-width: 320px;
+  width: 68vw;
+  max-width: 330px;
   box-shadow: 0 2px 8px #0004;
   outline: none;
 }
@@ -70,6 +69,7 @@ h1, .titulo {
   cursor: pointer;
   box-shadow: 0 2px 8px #0002;
   transition: background 0.15s;
+  vertical-align: middle;
 }
 #btnBuscar:hover {
   background: #bf2220;
@@ -78,13 +78,13 @@ h1, .titulo {
 #tabs {
   display: flex;
   justify-content: center;
-  margin: 18px 0 6px 0;
+  margin: 16px 0 6px 0;
   gap: 10px;
 }
 
 #btnRonda, #btnHistorial {
   font-size: 1.28rem;
-  padding: 12px 32px;
+  padding: 13px 32px;
   border-radius: 14px;
   font-weight: bold;
   border: none;
@@ -94,13 +94,11 @@ h1, .titulo {
   box-shadow: 0 2px 8px #0002;
   transition: background 0.15s;
 }
-#btnRonda.active, #btnRonda:active {
+#btnRonda.active {
   background: #e53935;
-  color: #fff;
 }
-#btnHistorial.active, #btnHistorial:active {
+#btnHistorial.active {
   background: #232323;
-  color: #fff;
   border: 2px solid #e53935;
 }
 
@@ -125,17 +123,17 @@ h1, .titulo {
   font-weight: bold;
   text-align: center;
   letter-spacing: 2px;
-  margin-bottom: 14px;
-  margin-top: 14px;
+  margin-bottom: 16px;
+  margin-top: 12px;
   color: #fff;
 }
 
 .card {
   background: #212121;
   border-radius: 22px;
-  padding: 24px 10px 26px 10px;
+  padding: 28px 10px 32px 10px;
   box-shadow: 0 2px 18px #0005;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   text-align: center;
   position: relative;
 }
@@ -164,7 +162,7 @@ h1, .titulo {
   margin-bottom: 0;
 }
 .konami, .konami-opo {
-  font-size: 1.1rem;
+  font-size: 1.13rem;
   color: #bbbbbb;
   margin-bottom: 0;
   margin-top: 1px;
@@ -245,7 +243,6 @@ h1, .titulo {
   font-size: 1.16rem;
   margin-bottom: 2px;
   margin-left: 8px;
-  /* El color del resultado lo pone la clase result-win/loss/draw */
 }
 .vs-nombre {
   font-weight: bold;
@@ -261,7 +258,6 @@ h1, .titulo {
   width: 100%;
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 700px) {
   .container { width: 99vw; }
   #tableContainer, #historyContainer { max-width: 98vw; }
@@ -271,4 +267,4 @@ h1, .titulo {
   .standing-box { font-size: 1.4rem; }
   .standing-nombre { font-size: 1.3rem; }
   .jugador, .oponente { font-size: 1.18rem; }
-  }
+}
