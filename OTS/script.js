@@ -37,13 +37,11 @@ async function cargarTorneo() {
     currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
     ocultarMensajePersonalizado();
-    buscarEmparejamientos(); // <<--- Aquí actualiza al buscar
+    buscarEmparejamientos();
   } else {
-    // Si es texto plano, muestra como mensaje personalizado
-    tournamentData = null; // Limpiar para evitar búsqueda antigua
+    tournamentData = null;
     document.getElementById('rondaInfo').textContent = '';
     mostrarMensajePersonalizado(text);
-    // Ocultar pareos/historial
     document.getElementById('tableContainer').innerHTML = '';
     document.getElementById('historyContainer').innerHTML = '';
   }
@@ -57,7 +55,6 @@ function getPlayerInfo(id) {
   const nombre = `${playerNode.querySelector('FirstName')?.textContent || ''} ${playerNode.querySelector('LastName')?.textContent || ''}`.trim();
   const rank = playerNode.querySelector('Rank')?.textContent;
   let standing = rank ? parseInt(rank, 10) : '-';
-  // Check for drop
   const dropRound = playerNode.querySelector('DropRound')?.textContent || '';
   const isDrop = dropRound && parseInt(dropRound, 10) > 0;
   return { nombre, standing, isDrop };
@@ -82,7 +79,6 @@ function buscarEmparejamientos() {
   const input = padId(inputRaw);
   localStorage.setItem('konamiId', input);
 
-  // No hay torneo cargado
   if (!tournamentData || !input) return;
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
@@ -149,7 +145,6 @@ function mostrarHistorial(input, standing, nombreJugador) {
   }
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
 
-  // Historial, de ronda más reciente a más antigua
   let historial = [];
   matches.forEach(match => {
     const p1 = padId(match.querySelectorAll('Player')[0]?.textContent || "");
@@ -228,7 +223,7 @@ document.getElementById('btnHistorial').addEventListener('click', () => {
 // BOTÓN DE BUSCAR Y ACTUALIZAR
 document.getElementById('btnBuscar').addEventListener('click', () => {
   cargarTorneo();
-  setTimeout(buscarEmparejamientos, 200); // Esperar que cargue el torneo y buscar
+  setTimeout(buscarEmparejamientos, 200);
 });
 
 // Al cambiar el ID o al cargar la página
