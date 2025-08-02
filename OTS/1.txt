@@ -186,6 +186,23 @@
 		</TournPlayer>
 		<TournPlayer>
 			<Player>
+				<ID>0406883091</ID>
+				<FirstName>Roberto</FirstName>
+				<LastName>Lopez Arce</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>1</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
 				<ID>0411046278</ID>
 				<FirstName>Francisco</FirstName>
 				<LastName>Ramírez</LastName>
@@ -306,8 +323,8 @@
 	</TournamentPlayers>
 	<Matches>
 		<TournMatch>
-			<Player>400116129</Player>
-			<Player>412578138</Player>
+			<Player>406883091</Player>
+			<Player>411227421</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>1</Table>
@@ -315,8 +332,8 @@
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
-			<Player>400400602</Player>
-			<Player>414162367</Player>
+			<Player>401923793</Player>
+			<Player>412425726</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>2</Table>
@@ -324,8 +341,8 @@
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
-			<Player>402243437</Player>
-			<Player>412425726</Player>
+			<Player>401239367</Player>
+			<Player>412677101</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>3</Table>
@@ -333,8 +350,8 @@
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
-			<Player>400213111</Player>
-			<Player>404858371</Player>
+			<Player>400116129</Player>
+			<Player>400400602</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>4</Table>
@@ -342,8 +359,8 @@
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
+			<Player>404858371</Player>
 			<Player>411107947</Player>
-			<Player>412677101</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>5</Table>
@@ -351,8 +368,8 @@
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
-			<Player>401239367</Player>
-			<Player>411046278</Player>
+			<Player>402243437</Player>
+			<Player>412578138</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>6</Table>
@@ -361,7 +378,7 @@
 		</TournMatch>
 		<TournMatch>
 			<Player>401492512</Player>
-			<Player>401923793</Player>
+			<Player>411046278</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>7</Table>
@@ -370,11 +387,20 @@
 		</TournMatch>
 		<TournMatch>
 			<Player>401503164</Player>
-			<Player>411227421</Player>
+			<Player>414162367</Player>
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>8</Table>
 			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400213111</Player>
+			<Player>0</Player>
+			<Round>1</Round>
+			<Status>Winner</Status>
+			<Table>9</Table>
+			<Winner>400213111</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 	</Matches>
