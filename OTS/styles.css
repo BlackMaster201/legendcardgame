@@ -1,258 +1,231 @@
 body {
-  background: #111;
+  background: #181818;
   color: #fff;
   font-family: 'Montserrat', Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  min-height: 100vh;
 }
-
 .logo-fondo {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
   background: url('LCG.png') center center no-repeat;
-  background-size: contain;
-  opacity: 0.13;
+  background-size: 70vw;
+  opacity: 0.08;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
   z-index: 0;
   pointer-events: none;
 }
-
 .container {
   position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  padding-bottom: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 1;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 18px 8px 50px 8px;
+  text-align: center;
 }
-
 h1 {
   color: #e53935;
-  margin: 32px 0 0 0;
-  font-size: 2.7rem;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 2px;
-  line-height: 1.1;
+  font-size: 2.3rem;
+  font-weight: 900;
+  margin: 32px 0 18px 0;
+  letter-spacing: 1px;
 }
-
 #rondaInfo {
-  color: #fff;
-  font-size: 2.2rem;
-  text-align: center;
-  font-weight: bold;
-  margin: 10px 0 26px 0;
-}
-
-input#konamiId {
-  background: #232323;
-  color: #fff;
-  border-radius: 10px;
-  border: none;
-  padding: 16px 24px;
-  font-size: 2.2rem;
-  width: 90vw;
-  max-width: 400px;
-  text-align: center;
-  margin-bottom: 10px;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: bold;
-}
-
-#buscarBtn {
-  width: 90vw;
-  max-width: 250px;
-  margin: 0 0 18px 0;
-  background: #e53935;
-  color: #fff;
   font-size: 2rem;
   font-weight: bold;
+  color: #fff;
+  margin-bottom: 14px;
+  margin-top: 10px;
+}
+.input-buscar-wrap {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+#konamiId {
+  width: 70%;
+  background: #222;
+  color: #fff;
+  font-size: 2rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 9px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 700;
+  outline: none;
+}
+.btn {
+  background: #e53935;
+  color: #fff;
   border: none;
   border-radius: 12px;
-  padding: 12px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 9px 24px;
   cursor: pointer;
-  box-shadow: 0 2px 8px #0003;
   transition: background 0.2s;
 }
-#buscarBtn:active {
-  background: #a52820;
+.btn:hover, .tab-btn.active {
+  background: #d32f2f;
 }
-
 .botones-tabs {
   display: flex;
   justify-content: center;
-  margin: 0 0 18px 0;
-  gap: 12px;
+  gap: 16px;
+  margin: 10px 0 20px 0;
 }
 .tab-btn {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
+  padding: 9px 32px;
+  border-radius: 13px;
   border: none;
-  border-radius: 14px;
-  padding: 10px 32px;
-  font-weight: bold;
-  margin: 0 4px;
   background: #232323;
   color: #fff;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
   outline: none;
+  transition: background 0.2s;
 }
-.tab-btn.active,
-.tab-btn:active {
+.tab-btn.active {
   background: #e53935;
   color: #fff;
 }
-
-/* ====== RONDA ====== */
-.mesa {
-  color: #fff;
-  font-size: 2.2rem;
+#tableContainer, #historyContainer {
+  margin-top: 16px;
   text-align: center;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  margin: 6px 0 18px 0;
+}
+.mesa {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  margin-top: 4px;
+  text-align: center;
 }
 .card {
-  background: #181818;
+  background: #202020;
   border-radius: 18px;
   margin: 0 auto 18px auto;
-  max-width: 600px;
-  padding: 0 0 18px 0;
-  box-shadow: 0 2px 12px #0004;
+  max-width: 99%;
+  padding: 0 0 0 0;
+  box-shadow: 0 3px 20px #0007;
   position: relative;
+  overflow: hidden;
+}
+.linea-roja, .linea-azul {
+  height: 8px;
+  border-radius: 12px;
 }
 .linea-roja {
-  height: 10px;
-  width: 100%;
   background: #e53935;
-  border-radius: 18px 18px 0 0;
+  width: 100%;
   margin-bottom: 0;
 }
 .linea-azul {
-  height: 10px;
+  background: #1976d2;
   width: 100%;
-  background: #2186ed;
-  border-radius: 0 0 18px 18px;
   margin-top: 0;
 }
 .jugador, .oponente {
+  font-size: 2rem;
   color: #fff;
-  font-weight: bold;
-  font-size: 2.2rem;
-  text-align: center;
-  margin-top: 18px;
-}
-.konami, .konami-opo {
-  color: #b0b0b0;
-  font-size: 1.3rem;
-  text-align: center;
-  font-weight: 400;
+  font-weight: 900;
+  margin-top: 14px;
   margin-bottom: 0;
 }
+.konami, .konami-opo {
+  font-size: 1.1rem;
+  color: #cfcfcf;
+  margin-bottom: 5px;
+}
 .vs-label {
-  color: #fff;
-  text-align: center;
   font-size: 2.3rem;
-  font-weight: bold;
-  margin: 18px 0 0 0;
-}
-
-/* ====== HISTORIAL ====== */
-.standing-box {
-  background: #181818;
-  border-radius: 16px;
-  text-align: center;
-  font-size: 2.1rem;
-  font-weight: bold;
-  margin: 24px auto 4px auto;
-  padding: 12px 8px 8px 8px;
-  max-width: 600px;
+  font-weight: 700;
+  margin: 12px 0 8px 0;
   color: #fff;
-  box-shadow: 0 2px 12px #0004;
-  position: relative;
 }
-.standing-box .medalla {
+.standing-box {
+  background: #232323;
+  color: #fff;
+  border-radius: 15px;
+  padding: 10px 0 2px 0;
+  margin: 0 auto 10px auto;
+  font-size: 2rem;
+  font-weight: 700;
+  max-width: 96vw;
+  letter-spacing: 2px;
+}
+.standing-box .medal {
   display: block;
   font-size: 2.2rem;
-  margin: 2px auto 0 auto;
+  margin: 0 auto;
 }
-.jugador-historial {
-  color: #fff;
+#historyContainer .jugador {
+  margin-bottom: 16px;
+  margin-top: 0;
+  font-size: 2rem;
   font-weight: bold;
-  font-size: 2.2rem;
   text-align: center;
-  margin-bottom: 18px;
 }
-
 .historial-caja {
   display: flex;
   align-items: stretch;
-  margin-bottom: 16px;
   background: #222;
   border-radius: 16px;
-  box-shadow: 0 2px 8px #0003;
-  padding: 0;
-  min-height: 64px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 9px #0005;
+  overflow: hidden;
+  max-width: 100%;
 }
-
 .historial-barra {
-  width: 12px;
-  border-radius: 16px 0 0 16px;
-  margin-right: 0;
-  margin-bottom: 0;
+  width: 10px;
+  border-radius: 8px 0 0 8px;
 }
-
-.result-win { background: #2ecc40; }
-.result-loss { background: #e53935; }
-.result-draw { background: #b0bec5; }
-
+.result-win { background: #43a047 !important; color: #43a047 !important;}
+.result-loss { background: #e53935 !important; color: #e53935 !important;}
+.result-draw { background: #bdbdbd !important; color: #bdbdbd !important;}
 .contenido-historial {
-  flex: 1;
+  text-align: left;
+  padding: 10px 14px 10px 14px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 8px 0 8px 14px;
 }
 .ronda-resultado {
+  font-size: 1.3rem;
   font-weight: bold;
-  font-size: 1.19rem;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
-.ronda-resultado.result-win { color: #2ecc40; }
-.ronda-resultado.result-loss { color: #e53935; }
-.ronda-resultado.result-draw { color: #b0bec5; }
 .vs-nombre {
-  font-size: 1.09rem;
+  font-size: 1.13rem;
   color: #fff;
   font-weight: bold;
-  text-align: left;
 }
-
-/* Mensaje personalizado */
 #mensajePersonalizado {
-  background: rgba(30, 30, 30, 0.93);
   color: #fff;
-  font-size: 1.4rem;
+  background: #222e;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin: 22px 0 0 0;
-  padding: 22px 18px;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px #0004;
-  text-align: center;
-  max-width: 90vw;
+  border-radius: 20px;
+  padding: 32px 16px;
+  margin: 30px auto 20px auto;
+  max-width: 500px;
+  box-shadow: 0 2px 14px #0007;
 }
-
-/* Responsive */
 @media (max-width: 600px) {
-  .container { padding-bottom: 48px; }
-  h1 { font-size: 2.1rem; }
-  #rondaInfo { font-size: 1.45rem; }
-  input#konamiId, #buscarBtn { font-size: 1.3rem; }
-  .jugador, .oponente, .jugador-historial { font-size: 1.4rem; }
-  .mesa { font-size: 1.15rem; }
-  .standing-box { font-size: 1.21rem; }
-  .historial-caja { min-height: 46px; }
+  .container { padding: 10px 0 60px 0; }
+  h1 { font-size: 1.38rem; }
+  #rondaInfo { font-size: 1.25rem;}
+  .input-buscar-wrap { flex-direction: column; gap: 7px;}
+  #konamiId { font-size: 1.25rem; width: 98%; }
+  .btn { font-size: 1.2rem; width: 99%; }
+  .botones-tabs { flex-direction: row; gap: 7px;}
+  .tab-btn { font-size: 1.1rem; width: 49vw;}
+  .mesa { font-size: 1.35rem;}
+  .card .jugador, .card .oponente, #historyContainer .jugador { font-size: 1.2rem;}
+  .card { padding: 0;}
+  .ronda-resultado { font-size: 1rem;}
 }
