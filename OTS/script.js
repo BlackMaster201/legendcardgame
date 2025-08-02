@@ -1,80 +1,66 @@
 let tournamentData = null;
 let currentRound = null;
 
-// Añadido: Helper para asignar medalla
-function getStandingHTML(standing) {
-  let medal = '';
-  let classMedal = '';
-  if (standing == 1) {
-    medal = '🥇';
-    classMedal = 'standing-1';
-  } else if (standing == 2) {
-    medal = '🥈';
-    classMedal = 'standing-2';
-  } else if (standing == 3) {
-    medal = '🥉';
-    classMedal = 'standing-3';
-  }
-  return `<span class="standing-medal ${classMedal}">${medal}</span> <span>${standing}</span>`;
-}
-
 function padId(id) {
   return String(id).padStart(10, '0');
 }
 
-// Mostrar mensaje personalizado si el archivo no es XML de torneo
 function mostrarMensajePersonalizado(texto) {
   document.getElementById('tableContainer').style.display = 'none';
-  document.getElementById('tab-buttons').style.display = 'none';
   document.getElementById('historyContainer').style.display = 'none';
   let msg = document.getElementById('mensajePersonalizado');
-  msg.textContent = texto;
+  if (!msg) {
+    msg = document.createElement('div');
+    msg.id = 'mensajePersonalizado';
+    msg.className = 'custom-message';
+    document.querySelector('.container').appendChild(msg);
+  }
+  msg.innerText = texto;
   msg.style.display = '';
 }
 
 function ocultarMensajePersonalizado() {
   let msg = document.getElementById('mensajePersonalizado');
-  msg.style.display = 'none';
+  if (msg) msg.style.display = 'none';
   document.getElementById('tableContainer').style.display = '';
-  document.getElementById('tab-buttons').style.display = '';
+  document.getElementById('historyContainer').style.display = '';
 }
 
 async function cargarTorneo() {
-  try {
-    const response = await fetch('1.txt', { cache: "reload" });
-    const text = await response.text();
+  const response = await fetch('1.txt');
+  const text = await response.text();
 
-    // Si el archivo parece XML, parsea normalmente
-    if (text.trim().startsWith('<?xml')) {
-      const parser = new DOMParser();
-      tournamentData = parser.parseFromString(text, 'text/xml');
-      const currentRoundNode = tournamentData.querySelector('CurrentRound');
-      currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
-      document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
-      ocultarMensajePersonalizado();
-      buscarEmparejamientos();
-    } else {
-      // Si es texto plano, muestra como mensaje personalizado
-      document.getElementById('rondaInfo').textContent = '';
-      mostrarMensajePersonalizado(text);
-    }
-  } catch (err) {
+  if (text.trim().startsWith('<?xml')) {
+    const parser = new DOMParser();
+    tournamentData = parser.parseFromString(text, 'text/xml');
+    const currentRoundNode = tournamentData.querySelector('CurrentRound');
+    currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
+    document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
+    ocultarMensajePersonalizado();
+    buscarEmparejamientos();
+  } else {
     document.getElementById('rondaInfo').textContent = '';
-    mostrarMensajePersonalizado('No se encontró el archivo del torneo.');
+    mostrarMensajePersonalizado(text);
   }
 }
 
 function getPlayerInfo(id) {
+  if (!tournamentData) return null;
   const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
   const playerNode = players.find(p => padId(p.querySelector('ID')?.textContent) === id);
   if (!playerNode) return null;
   const nombre = `${playerNode.querySelector('FirstName')?.textContent || ''} ${playerNode.querySelector('LastName')?.textContent || ''}`.trim();
   const rank = playerNode.querySelector('Rank')?.textContent;
   let standing = rank ? parseInt(rank, 10) : '-';
-  // Check for drop
+  // Medallas
+  let medal = '';
+  if (standing === 1) medal = ' 🥇';
+  if (standing === 2) medal = ' 🥈';
+  if (standing === 3) medal = ' 🥉';
+  // Drop
   const dropRound = playerNode.querySelector('DropRound')?.textContent || '';
   const isDrop = dropRound && parseInt(dropRound, 10) > 0;
-  return { nombre, standing, isDrop };
+  return { nombre, standing, medal, isDrop };
 }
 
 function buscarEmparejamientos() {
@@ -85,7 +71,6 @@ function buscarEmparejamientos() {
   if (!tournamentData || !input) return;
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
-  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
 
   let encontrado = false;
   let emparejamiento = null;
@@ -94,15 +79,17 @@ function buscarEmparejamientos() {
   let idOponente = '';
   let mesa = '';
   let standingJugador = '-';
+  let medalJugador = '';
 
-  // Standing y nombre
+  // Buscar Standing y Nombre del jugador
   const infoJugador = getPlayerInfo(input);
   if (infoJugador) {
     nombreJugador = infoJugador.nombre;
     standingJugador = infoJugador.standing;
+    medalJugador = infoJugador.medal;
   }
 
-  // Emparejamiento actual
+  // Buscar emparejamiento actual
   for (const match of matches) {
     const round = parseInt(match.querySelector('Round')?.textContent || "0", 10);
     if (round !== currentRound) continue;
@@ -123,7 +110,7 @@ function buscarEmparejamientos() {
   const tableContainer = document.getElementById('tableContainer');
   if (encontrado) {
     tableContainer.innerHTML = `
-      <div class="mesa">Mesa: ${mesa}</div>
+      <div class="mesa"><span>MESA ${mesa}</span></div>
       <div class="card">
         <div class="linea-roja"></div>
           <div class="jugador">${nombreJugador}</div>
@@ -139,10 +126,10 @@ function buscarEmparejamientos() {
   }
 
   // Mostrar historial
-  mostrarHistorial(input, standingJugador, nombreJugador);
+  mostrarHistorial(input, standingJugador, nombreJugador, medalJugador);
 }
 
-function mostrarHistorial(input, standing, nombreJugador) {
+function mostrarHistorial(input, standing, nombreJugador, medalJugador) {
   const historyContainer = document.getElementById('historyContainer');
   if (!tournamentData) {
     historyContainer.innerHTML = '';
@@ -150,6 +137,7 @@ function mostrarHistorial(input, standing, nombreJugador) {
   }
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
 
+  // Historial, de ronda más reciente a más antigua
   let historial = [];
   matches.forEach(match => {
     const p1 = padId(match.querySelectorAll('Player')[0]?.textContent || "");
@@ -174,10 +162,9 @@ function mostrarHistorial(input, standing, nombreJugador) {
 
   historial.sort((a, b) => b.ronda - a.ronda);
 
-  // Standing y nombre arriba
-  let standingStr = standing !== '-' ? getStandingHTML(standing) : '-';
-  let standingHTML = `<div class="standing-box">Standing: ${standingStr}</div>
-    <div class="jugador-historial">${nombreJugador}</div>`;
+  // Mostrar standing y nombre arriba
+  let standingHTML = `<div class="standing-box">Standing: <span>${standing || '-'}</span>${medalJugador}</div>
+  <div class="jugador-historial">${nombreJugador}</div>`;
 
   let content = standingHTML;
 
@@ -191,4 +178,50 @@ function mostrarHistorial(input, standing, nombreJugador) {
       colorBarra = 'result-loss';
       colorTexto = 'result-loss';
     } else {
-      colorBarra
+      colorBarra = 'result-draw';
+      colorTexto = 'result-draw';
+    }
+
+    content += `
+      <div class="historial-caja">
+        <div class="historial-barra ${colorBarra}"></div>
+        <div class="contenido-historial">
+          <div class="ronda-resultado ${colorTexto}">Ronda ${ronda} - ${resultado}</div>
+          <div class="vs-nombre">VS ${nombreOponente}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  historyContainer.innerHTML = content;
+}
+
+// Alternar pestañas
+document.getElementById('btnRonda').addEventListener('click', () => {
+  document.getElementById('tableContainer').style.display = '';
+  document.getElementById('historyContainer').style.display = 'none';
+  document.getElementById('btnRonda').classList.add('active');
+  document.getElementById('btnHistorial').classList.remove('active');
+});
+document.getElementById('btnHistorial').addEventListener('click', () => {
+  document.getElementById('tableContainer').style.display = 'none';
+  document.getElementById('historyContainer').style.display = '';
+  document.getElementById('btnHistorial').classList.add('active');
+  document.getElementById('btnRonda').classList.remove('active');
+});
+
+// Buscar cuando se presione el botón o ENTER
+document.getElementById('btnBuscar').addEventListener('click', buscarEmparejamientos);
+document.getElementById('konamiId').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') buscarEmparejamientos();
+});
+
+// Al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  cargarTorneo();
+  const lastId = localStorage.getItem('konamiId');
+  if (lastId) {
+    document.getElementById('konamiId').value = lastId;
+    setTimeout(buscarEmparejamientos, 300);
+  }
+});
