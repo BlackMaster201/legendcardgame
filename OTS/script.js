@@ -168,4 +168,35 @@ fetch('1.txt')
         if (e.key === "Enter") buscarEmparejamientos();
       });
       btnRonda.onclick = () => {
-        btnRonda.class
+        btnRonda.classList.add("active");
+        btnHistorial.classList.remove("active");
+        tableContainer.style.display = "";
+        historyContainer.style.display = "none";
+      };
+      btnHistorial.onclick = () => {
+        btnHistorial.classList.add("active");
+        btnRonda.classList.remove("active");
+        tableContainer.style.display = "none";
+        historyContainer.style.display = "";
+      };
+
+      // Restaurar el último ID buscado
+      if (localStorage.getItem("konamiId")) {
+        input.value = localStorage.getItem("konamiId");
+        buscarEmparejamientos();
+      }
+      input.addEventListener("input", () => {
+        localStorage.setItem("konamiId", input.value.trim());
+      });
+    }
+  })
+  .catch(() => {
+    document.getElementById("mensajePersonalizado").style.display = "block";
+    document.getElementById("mensajePersonalizado").textContent = "No se encontró el archivo 1.txt";
+    document.getElementById("konamiId").style.display = "none";
+    document.getElementById("tableContainer").style.display = "none";
+    document.getElementById("historyContainer").style.display = "none";
+    document.getElementById("btnRonda").style.display = "none";
+    document.getElementById("btnHistorial").style.display = "none";
+    document.getElementById("rondaInfo").style.display = "none";
+  });
