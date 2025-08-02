@@ -4,73 +4,66 @@ body {
   color: #fff;
   margin: 0;
   padding-bottom: 80px;
+  user-select: none;
 }
 header {
   text-align: center;
-  padding: 20px;
-  background-color: rgba(0,0,0,0.80);
+  padding: 20px 10px 15px 10px;
+  background-color: rgba(0, 0, 0, 0.8);
 }
-#mainTitle {
-  color: #d62828;
+h1 {
+  margin: 0 0 10px 0;
+  color: #D62828; /* Título principal en rojo */
+}
+h2 {
+  margin: 0 0 10px 0;
+  color: #fff;
   font-weight: bold;
-  margin: 0;
 }
-#rondaInfo {
-  margin: 0;
-}
+
 .container {
-  position: relative;
-  padding: 20px;
-  min-height: 400px;
-  background: rgba(18,18,18,0.95);
+  padding: 20px 10px 30px 10px;
+  background: linear-gradient(rgba(18, 18, 18, 0.98), rgba(18, 18, 18, 0.98)), url('LCG.png') no-repeat center 55%;
+  background-size: 240px;
+  background-attachment: local;
+  min-height: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
-.container:after {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  top: 50%;
-  width: 250px;
-  height: 250px;
-  background: url('LCG.png') no-repeat center center;
-  background-size: contain;
-  opacity: 0.19;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
+
 input[type="text"] {
-  margin: 10px 0 20px 0;
-  padding: 10px;
+  margin-top: 10px;
+  padding: 10px 10px;
   border-radius: 6px;
   width: 100%;
   max-width: 400px;
   font-size: 16px;
   text-align: center;
-  border: none;
-  z-index: 1;
-  position: relative;
+  background: #191919;
+  color: #eee;
+  border: 1px solid #555;
+  box-sizing: border-box;
+  outline: none;
 }
+
 footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #18181c;
+  background-color: #1e1e1e;
   display: flex;
   justify-content: center;
   gap: 18px;
-  padding: 10px 0;
-  z-index: 100;
+  padding: 11px 0 11px 0;
+  z-index: 10;
 }
 footer button {
   background-color: #333;
   color: white;
   border: none;
-  padding: 10px 22px;
+  padding: 10px 24px;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -80,141 +73,178 @@ footer button.active {
   background-color: #D62828;
 }
 
-#mensajePersonalizado {
-  font-size: 2rem;
+.mesa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
-  color: #fff;
-  background: rgba(18,18,18,0.93);
-  padding: 40px 30px;
-  border-radius: 16px;
-  text-align: center;
-  margin-top: 80px;
-  box-shadow: 0 2px 20px #000a;
-  z-index: 10;
-}
-
-#tableContainer, #historyContainer {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto 20px auto;
-  position: relative;
-  z-index: 1;
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+  margin-top: 10px;
+  color: #D62828;
+  letter-spacing: 1px;
 }
 
 .card {
   background: #1E1E1E;
-  border-radius: 10px;
-  padding: 0 0 16px 0;
-  margin-bottom: 22px;
+  border-radius: 12px;
+  padding: 18px 15px 17px 15px;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
-  box-shadow: 0 2px 12px #0003;
   position: relative;
-  overflow: hidden;
+  margin: 0 auto 23px auto;
+  box-shadow: 0 0 12px 0 rgba(25, 25, 25, 0.27);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Asegura ancho igual a líneas */
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
+  box-sizing: border-box;
 }
-.card .linea-roja,
-.card .linea-azul {
-  height: 6px;
-  width: 100%;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.card .linea-roja { background: #D62828; border-radius: 10px 10px 0 0; }
-.card .linea-azul { background: #007BFF; border-radius: 0 0 10px 10px; }
 
-.card .mesa {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #d62828;
-  margin-bottom: 12px;
-  margin-top: 0;
-  letter-spacing: 1px;
-  background: none;
-  text-align: center;
-  width: 100%;
-  display: block;
+.linea-roja {
+  width: 90%;
+  height: 5px;
+  border-radius: 2px 2px 0 0;
+  background-color: #D62828;
+  position: absolute;
+  top: 0;
+  left: 5%;
 }
-.card .jugador, .card .oponente {
-  font-size: 1.16rem;
+.linea-azul {
+  width: 90%;
+  height: 5px;
+  border-radius: 0 0 2px 2px;
+  background-color: #007BFF;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+}
+
+.jugador {
   font-weight: bold;
-  margin-bottom: 0px;
-  margin-top: 2px;
   color: #fff;
+  margin-top: 18px;
+  font-size: 1.2rem;
   text-align: center;
 }
-.card .konami, .card .konami-opo {
-  font-size: 0.93rem;
-  color: #bbbbbb;
-  margin-bottom: 8px;
-  font-weight: normal;
+.konami {
+  color: #aaa;
+  font-size: 15px;
+  margin-bottom: 9px;
   text-align: center;
 }
 .vs-label {
   text-align: center;
   font-size: 21px;
   font-weight: bold;
-  color: #cfd8dc;
-  margin: 18px 0 18px 0;
-  letter-spacing: 2px;
+  color: #D3D3D3;
+  margin: 7px 0 7px 0;
+  letter-spacing: 1.3px;
 }
-.standing-box {
-  font-weight: bold;
-  margin-bottom: 12px;
-  text-align: center;
-  font-size: 1.10rem;
-  color: #FFD700;
-  background: none;
-}
-.historial-caja {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  background: #23232a;
-  border-radius: 10px;
-  margin: 15px 0 18px 0;
-  box-shadow: 0 2px 10px #0002;
-  padding: 0 0 0 0;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-}
-.historial-barra {
-  width: 8px;
-  border-radius: 10px 0 0 10px;
-  margin-right: 12px;
-  min-height: 56px;
-}
-.historial-caja .contenido-historial {
-  padding: 14px 18px 14px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-}
-.historial-caja .ronda-resultado {
-  font-weight: bold;
-  font-size: 1.10rem;
-  margin-bottom: 2px;
-  text-align: left;
-}
-.historial-caja .vs-nombre {
+.oponente {
   font-weight: bold;
   color: #fff;
-  font-size: 1.10rem;
-  margin-top: 0px;
+  font-size: 1.2rem;
+  margin-bottom: 3px;
+  margin-top: 2px;
+  text-align: center;
+}
+.konami-opo {
+  color: #aaa;
+  font-size: 15px;
+  text-align: center;
+}
+
+.standing-box {
+  background: #242424dd;
+  color: #fff;
+  border-radius: 7px;
+  padding: 7px 0 3px 0;
+  font-size: 1.05rem;
+  margin: 18px auto 2px auto;
+  width: 95%;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#mensajePersonalizado {
+  background: #222d;
+  color: #fff;
+  border-radius: 10px;
+  padding: 30px 18px;
+  margin: 38px auto 20px auto;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+  max-width: 410px;
+  letter-spacing: 1.2px;
+}
+
+.historial-caja {
+  display: flex;
+  align-items: stretch;
+  margin: 0 auto 16px auto;
+  border-radius: 9px;
+  background: #191919ef;
+  box-shadow: 0 2px 12px 0 rgba(50, 50, 50, 0.14);
+  width: 97%;
+  max-width: 410px;
+}
+.historial-barra {
+  width: 7px;
+  border-radius: 7px 0 0 7px;
+}
+.result-win {
+  background-color: #4CAF50 !important;
+  color: #4CAF50 !important;
+}
+.result-loss {
+  background-color: #F44336 !important;
+  color: #F44336 !important;
+}
+.result-draw {
+  background-color: #B0BEC5 !important;
+  color: #B0BEC5 !important;
+}
+
+.contenido-historial {
+  flex: 1;
+  padding: 11px 16px 9px 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ronda-resultado {
+  font-weight: bold;
+  font-size: 1.06rem;
+  margin-bottom: 3px;
   text-align: left;
 }
-.result-win { color: #4CAF50 !important; }
-.result-loss { color: #F44336 !important; }
-.result-draw { color: #B0BEC5 !important; }
-.historial-barra.result-win { background: #4CAF50; }
-.historial-barra.result-loss { background: #F44336; }
-.historial-barra.result-draw { background: #B0BEC5; }
+.vs-nombre {
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.03rem;
+  text-align: left;
+  margin-left: 0;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 13px 0 14vw 0;
+    background-size: 37vw;
+    min-height: 310px;
+  }
+  .card {
+    padding: 11px 3vw 12px 3vw;
+    max-width: 98vw;
+  }
+  .historial-caja, .standing-box {
+    max-width: 97vw;
+  }
+  input[type="text"] {
+    max-width: 97vw;
+    font-size: 15px;
+    padding: 8px 6px;
+  }
+}
