@@ -37,7 +37,8 @@ async function cargarTorneo() {
     currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
     ocultarMensajePersonalizado();
-    buscarEmparejamientos();
+    // Mostrar la ronda por defecto
+    mostrarRonda();
   } else {
     // Si es texto plano, muestra como mensaje personalizado
     document.getElementById('rondaInfo').textContent = '';
@@ -63,7 +64,11 @@ function buscarEmparejamientos() {
   const input = padId(inputRaw);
   localStorage.setItem('konamiId', input);
 
-  if (!tournamentData || !input) return;
+  if (!tournamentData || !input) {
+    document.getElementById('tableContainer').innerHTML = "";
+    document.getElementById('historyContainer').innerHTML = "";
+    return;
+  }
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
   const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
@@ -123,6 +128,24 @@ function buscarEmparejamientos() {
   mostrarHistorial(input, standingJugador, nombreJugador);
 }
 
+// Tab: Ronda
+function mostrarRonda() {
+  document.getElementById('tableContainer').style.display = '';
+  document.getElementById('historyContainer').style.display = 'none';
+  document.getElementById('btnRonda').classList.add('active');
+  document.getElementById('btnHistorial').classList.remove('active');
+  buscarEmparejamientos();
+}
+
+// Tab: Historial
+function mostrarHistorialTab() {
+  document.getElementById('tableContainer').style.display = 'none';
+  document.getElementById('historyContainer').style.display = '';
+  document.getElementById('btnHistorial').classList.add('active');
+  document.getElementById('btnRonda').classList.remove('active');
+  buscarEmparejamientos();
+}
+
 function mostrarHistorial(input, standing, nombreJugador) {
   const historyContainer = document.getElementById('historyContainer');
   if (!tournamentData) {
@@ -130,8 +153,6 @@ function mostrarHistorial(input, standing, nombreJugador) {
     return;
   }
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
-  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
-
   // Historial, de ronda más reciente a más antigua
   let historial = [];
   matches.forEach(match => {
@@ -198,9 +219,22 @@ function mostrarHistorial(input, standing, nombreJugador) {
 }
 
 // Alternar pestañas
-document.getElementById('btnRonda').addEventListener('click', () => {
-  document.getElementById('tableContainer').style.display = '';
-  document.getElementById('historyContainer').style.display = 'none';
-  document.getElementById('btnRonda').classList.add('active');
-  document.getElementById('btnHistorial').classList.remove('active');
+document.getElementById('btnRonda').addEventListener('click', mostrarRonda);
+document.getElementById('btnHistorial').addEventListener('click', mostrarHistorialTab);
+
+// Botón buscar y Enter en input
+document.getElementById('buscarBtn').addEventListener('click', () => {
+  mostrarRonda();
+});
+document.getElementById('konamiId').addEventListener('keydown', function(e) {
+  if (e.key === "Enter") {
+    mostrarRonda();
+  }
+});
+
+// Al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  cargarTorneo();
+  const lastId = localStorage.getItem('konamiId');
+  if (lastId) document.getElementById('konamiId').value = lastId;
 });
