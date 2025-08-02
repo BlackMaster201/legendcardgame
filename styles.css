@@ -1,300 +1,125 @@
 body {
   background: #181818;
   color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  overflow-x: hidden;
   position: relative;
 }
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-  padding-bottom: 40px;
-}
-
-.titulo-rojo {
-  color: #e53935;
-  font-size: 2.7rem;
-  margin: 30px 0 8px 0;
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 2px;
-}
-
-.ronda-info {
-  font-size: 2.3rem;
-  font-weight: bold;
-  text-align: center;
-  color: #fff;
-  margin-bottom: 20px;
-}
-
-.search-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-#konamiId {
-  width: 100%;
-  max-width: 480px;
-  font-size: 1.5rem;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: #232323;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-#btnBuscar {
-  background: #e53935;
-  color: #fff;
-  border: none;
-  padding: 10px 32px;
-  font-size: 1.25rem;
-  font-weight: bold;
-  border-radius: 7px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: background 0.2s;
-}
-
-#btnBuscar:hover, #btnBuscar:focus {
-  background: #b71c1c;
-}
-
-#tab-buttons {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0 10px 0;
-  gap: 16px;
-}
-
-#tab-buttons button {
-  background: #232323;
-  color: #fff;
-  border: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 8px 25px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-#tab-buttons button.active {
-  background: #e53935;
-  color: #fff;
-}
-
-.mensaje-personalizado {
-  font-size: 1.4rem;
-  color: #fff;
-  background: rgba(30,30,30,0.90);
-  padding: 25px;
-  border-radius: 18px;
-  text-align: center;
-  font-weight: 500;
-  margin: 35px 0 25px 0;
-}
-
-.mesa {
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.45rem;
-  margin: 14px 0 0 0;
-  letter-spacing: 1px;
-}
-
-.card {
-  margin: 16px 0 0 0;
-  background: #232323;
-  border-radius: 15px;
-  box-shadow: 0 4px 16px 2px rgba(0,0,0,0.15);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  position: relative;
-  max-width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 170px;
-}
-
-.linea-roja {
-  width: 100%;
-  height: 7px;
-  background: #e53935;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-}
-
-.linea-azul {
-  width: 100%;
-  height: 7px;
-  background: #2196f3;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  margin-top: auto;
-}
-
-.jugador, .oponente {
-  font-size: 1.7rem;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 0;
-}
-
-.konami, .konami-opo {
-  text-align: center;
-  font-size: 1rem;
-  color: #b0b0b0;
-  margin-top: 4px;
-  margin-bottom: 2px;
-  font-weight: 400;
-  letter-spacing: 1px;
-}
-
-.vs-label {
-  text-align: center;
-  margin: 15px 0 10px 0;
-  font-size: 1.4rem;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-}
-
-#historyContainer {
-  margin-top: 10px;
-}
-
-.standing-box {
-  background: #232323;
-  color: #fff;
-  font-size: 1.7rem;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 14px;
-  padding: 7px 0 5px 0;
-  margin-bottom: 4px;
-  margin-top: 12px;
-}
-
-.standing-medal {
-  font-size: 1.5em;
-  vertical-align: middle;
-  margin-right: 2px;
-}
-.standing-1 { color: gold; }
-.standing-2 { color: #b8b8b8; }
-.standing-3 { color: #b87333; }
-
-.jugador-historial {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 10px 0 18px 0;
-}
-
-.historial-caja {
-  display: flex;
-  align-items: stretch;
-  background: #232323;
-  border-radius: 14px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 12px 1px rgba(0,0,0,0.10);
-  position: relative;
-  min-height: 80px;
-}
-
-.historial-barra {
-  width: 10px;
-  border-radius: 14px 0 0 14px;
-  margin-right: 12px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.result-win { background: #4CAF50; }
-.result-loss { background: #E53935; }
-.result-draw { background: #9E9E9E; }
-
-.contenido-historial {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px 10px 10px 0;
-  min-width: 0;
-}
-
-.ronda-resultado {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 7px;
-  text-align: left;
-  letter-spacing: 1px;
-}
-
-.ronda-resultado.result-win { color: #4CAF50; }
-.ronda-resultado.result-loss { color: #E53935; }
-.ronda-resultado.result-draw { color: #9E9E9E; }
-
-.vs-nombre {
-  font-size: 1.17rem;
-  color: #fff;
-  font-weight: bold;
-  margin-bottom: 0;
-  text-align: left;
-}
-
-.logo-fondo {
+.logo-fondo-main {
   position: fixed;
   left: 50%;
-  top: 57%;
-  width: 500px;
-  max-width: 95vw;
+  top: 55%;
+  width: 600px;
+  max-width: 90vw;
   transform: translate(-50%, -50%);
   z-index: 0;
-  opacity: 0.12;
+  opacity: 0.10;
   user-select: none;
   pointer-events: none;
   filter: brightness(1.1) drop-shadow(0 2px 8px #000);
 }
-
-/* Responsive */
-@media (max-width: 600px) {
-  .container {
-    padding-bottom: 40px;
-  }
-  .titulo-rojo {
-    font-size: 2.0rem;
-    margin: 18px 0 4px 0;
-  }
-  .logo-fondo {
-    width: 90vw;
-    min-width: 280px;
-    left: 50%;
-    top: 55%;
-  }
-  .jugador, .oponente {
-    font-size: 1.15rem;
-  }
-  .jugador-historial {
-    font-size: 1.25rem;
-  }
-  .standing-box {
-    font-size: 1.25rem;
-    padding: 5px 0 5px 0;
-  }
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 210px;
+  background: #101010;
+  color: #fff;
+  z-index: 10;
+  box-shadow: 2px 0 12px 0 rgba(0,0,0,0.3);
+  transition: transform 0.2s;
 }
-
-::-webkit-scrollbar { width: 8px; background: #1a1a1a;}
-::-webkit-scrollbar-thumb { background: #222; border-radius: 8px;}
+.sidebar ul {
+  list-style: none;
+  padding: 60px 0 0 0;
+  margin: 0;
+}
+.sidebar-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 16px 32px;
+  font-size: 1.15rem;
+  transition: background 0.18s, color 0.16s;
+}
+.sidebar-link.active,
+.sidebar-link:hover {
+  background: #e53935;
+  color: #fff;
+}
+.sidebar-toggle {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 2.2rem;
+  cursor: pointer;
+  z-index: 15;
+  outline: none;
+}
+.main-content {
+  margin-left: 210px;
+  padding: 28px 18px 18px 18px;
+  min-height: 100vh;
+  z-index: 1;
+  position: relative;
+}
+.principal-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 60px;
+  margin-bottom: 38px;
+}
+.principal-card {
+  background: #222;
+  border-radius: 20px;
+  box-shadow: 0 3px 18px 2px rgba(0,0,0,0.19);
+  padding: 35px 32px 25px 32px;
+  min-width: 280px;
+  max-width: 370px;
+  flex: 1 1 320px;
+  text-align: center;
+  cursor: pointer;
+  transition: box-shadow 0.15s, background 0.17s;
+  border: 2.5px solid transparent;
+}
+.principal-card:hover {
+  background: #252424;
+  border: 2.5px solid #e53935;
+  box-shadow: 0 3px 22px 5px rgba(0,0,0,0.30);
+}
+.principal-title {
+  font-size: 1.6rem;
+  color: #e53935;
+  margin: 0 0 15px 0;
+  font-weight: bold;
+}
+.principal-desc {
+  color: #eee;
+  font-size: 1.15rem;
+  margin: 0;
+}
+footer {
+  margin-top: 50px;
+  text-align: center;
+  color: #aaa;
+  font-size: 1rem;
+  z-index: 1;
+}
+@media (max-width: 800px) {
+  .principal-boxes { flex-direction: column; gap: 22px;}
+  .main-content { margin-left: 0; padding: 22px 6px;}
+  .sidebar { transform: translateX(-210px);}
+  .sidebar.open { transform: translateX(0);}
+}
+@media (max-width: 500px) {
+  .principal-card { min-width: 90vw; max-width: 95vw; }
+  .logo-fondo-main { width: 95vw; }
+}
