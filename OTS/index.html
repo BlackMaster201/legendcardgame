@@ -2,31 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yu-Gi-Oh! OTS Championship</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1 class="titulo-principal" style="color:#e53935;">Yu-Gi-Oh! OTS Championship</h1>
-      <div id="rondaInfo" class="ronda-info"></div>
-    </header>
-    <div class="busqueda-box">
-      <input type="text" id="konamiId" maxlength="10" placeholder="Ingresa tu Konami ID"/>
+    <h1 class="titulo-rojo">Yu-Gi-Oh! OTS Championship</h1>
+    <div id="rondaInfo" class="ronda-info"></div>
+
+    <div class="search-box">
+      <input id="konamiId" maxlength="10" autocomplete="off" placeholder="Ingresa tu Konami ID" />
       <button id="btnBuscar">Buscar</button>
     </div>
-    <div id="tableContainer"></div>
-    <div id="historyContainer" style="display:none;"></div>
 
-    <!-- Botones de navegación inferiores -->
-    <div class="nav-bottom">
+    <div id="mensajePersonalizado" class="mensaje-personalizado" style="display:none"></div>
+
+    <div id="tableContainer"></div>
+
+    <div id="tab-buttons">
       <button id="btnRonda" class="active">Ronda</button>
       <button id="btnHistorial">Historial</button>
     </div>
-    <!-- Logo de fondo -->
-    <img src="LCG.png" class="logo-fondo" alt="Logo LCG" />
+    <div id="historyContainer" style="display:none"></div>
   </div>
+  <img src="LCG.png" alt="Logo Legend Card Game" class="logo-fondo" />
   <script src="script.js"></script>
 </body>
 </html>
