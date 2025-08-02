@@ -326,9 +326,9 @@
 			<Player>406883091</Player>
 			<Player>411227421</Player>
 			<Round>1</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>1</Table>
-			<Winner>0</Winner>
+			<Winner>406883091</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -344,9 +344,9 @@
 			<Player>401239367</Player>
 			<Player>412677101</Player>
 			<Round>1</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>3</Table>
-			<Winner>0</Winner>
+			<Winner>401239367</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
