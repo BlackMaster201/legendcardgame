@@ -425,9 +425,9 @@
 			<Player>400213111</Player>
 			<Player>401492512</Player>
 			<Round>2</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>3</Table>
-			<Winner>0</Winner>
+			<Winner>400213111</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
