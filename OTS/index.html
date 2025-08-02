@@ -4,24 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yu-Gi-Oh! OTS Championship</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" type="image/png" href="favicon.png"/>
-  <meta name="theme-color" content="#181818">
 </head>
 <body>
-  <div id="logo-bg">
-    <img src="LCG.png" alt="Logo LCG" style="width:100%;max-width:600px;opacity:0.14;display:block;margin:auto;"/>
-  </div>
+  <div class="logo-fondo"></div>
   <div class="container">
-    <h1 class="titulo">Yu-Gi-Oh! OTS<br>Championship</h1>
+    <h1>Yu-Gi-Oh! OTS Championship</h1>
     <div id="rondaInfo"></div>
-    <div id="formulario">
-      <input id="konamiId" type="text" maxlength="10" placeholder="Ingresa tu Konami ID"/>
-      <button id="btnBuscar">Buscar</button>
-    </div>
-    <div id="tabs">
-      <button id="btnRonda" class="active">Ronda</button>
-      <button id="btnHistorial">Historial</button>
+    <input type="text" id="konamiId" maxlength="10" placeholder="Ingresa tu Konami ID" autocomplete="off" />
+    <button id="buscarBtn" class="btn">Buscar</button>
+    <div class="botones-tabs">
+      <button id="btnRonda" class="tab-btn active">Ronda</button>
+      <button id="btnHistorial" class="tab-btn">Historial</button>
     </div>
     <div id="tableContainer"></div>
     <div id="historyContainer" style="display:none"></div>
