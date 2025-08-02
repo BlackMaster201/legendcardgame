@@ -37,7 +37,7 @@ async function cargarTorneo() {
     currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
     ocultarMensajePersonalizado();
-    buscarEmparejamientos();
+    mostrarRonda();
   } else {
     document.getElementById('rondaInfo').textContent = '';
     mostrarMensajePersonalizado(text);
@@ -64,11 +64,19 @@ function getPlayerInfo(id) {
 }
 
 function buscarEmparejamientos() {
+  mostrarRonda();
+  mostrarHistorial();
+}
+
+function mostrarRonda() {
   const inputRaw = document.getElementById('konamiId').value.trim();
   const input = padId(inputRaw);
   localStorage.setItem('konamiId', input);
 
-  if (!tournamentData || !input) return;
+  if (!tournamentData || !input) {
+    document.getElementById('tableContainer').innerHTML = '';
+    return;
+  }
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
 
@@ -78,16 +86,6 @@ function buscarEmparejamientos() {
   let nombreOponente = '';
   let idOponente = '';
   let mesa = '';
-  let standingJugador = '-';
-  let medalJugador = '';
-
-  // Buscar Standing y Nombre del jugador
-  const infoJugador = getPlayerInfo(input);
-  if (infoJugador) {
-    nombreJugador = infoJugador.nombre;
-    standingJugador = infoJugador.standing;
-    medalJugador = infoJugador.medal;
-  }
 
   // Buscar emparejamiento actual
   for (const match of matches) {
@@ -100,7 +98,9 @@ function buscarEmparejamientos() {
       emparejamiento = match;
       mesa = match.querySelector('Table')?.textContent || '';
       idOponente = input === p1 ? p2 : p1;
+      const infoJugador = getPlayerInfo(input);
       const infoOpo = getPlayerInfo(idOponente);
+      nombreJugador = infoJugador ? infoJugador.nombre : '';
       nombreOponente = infoOpo ? infoOpo.nombre : '';
       break;
     }
@@ -124,18 +124,25 @@ function buscarEmparejamientos() {
   } else {
     tableContainer.innerHTML = `<div style="text-align:center;font-size:1.1rem;font-weight:bold;margin-top:32px;">No se encontró el Konami ID o no tienes emparejamiento esta ronda.</div>`;
   }
-
-  // Mostrar historial
-  mostrarHistorial(input, standingJugador, nombreJugador, medalJugador);
 }
 
-function mostrarHistorial(input, standing, nombreJugador, medalJugador) {
+function mostrarHistorial() {
   const historyContainer = document.getElementById('historyContainer');
-  if (!tournamentData) {
+  const inputRaw = document.getElementById('konamiId').value.trim();
+  const input = padId(inputRaw);
+
+  if (!tournamentData || !input) {
     historyContainer.innerHTML = '';
     return;
   }
+
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
+
+  // Buscar standing y nombre
+  const infoJugador = getPlayerInfo(input);
+  const nombreJugador = infoJugador ? infoJugador.nombre : '';
+  const standing = infoJugador ? infoJugador.standing : '-';
+  const medalJugador = infoJugador ? infoJugador.medal : '';
 
   // Historial, de ronda más reciente a más antigua
   let historial = [];
@@ -203,6 +210,7 @@ document.getElementById('btnRonda').addEventListener('click', () => {
   document.getElementById('btnRonda').classList.add('active');
   document.getElementById('btnHistorial').classList.remove('active');
 });
+
 document.getElementById('btnHistorial').addEventListener('click', () => {
   document.getElementById('tableContainer').style.display = 'none';
   document.getElementById('historyContainer').style.display = '';
@@ -216,12 +224,7 @@ document.getElementById('konamiId').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') buscarEmparejamientos();
 });
 
-// Al cargar la página
+// Al cargar la página, SIEMPRE mostrar la pestaña Ronda por defecto
 document.addEventListener('DOMContentLoaded', () => {
   cargarTorneo();
-  const lastId = localStorage.getItem('konamiId');
-  if (lastId) {
-    document.getElementById('konamiId').value = lastId;
-    setTimeout(buscarEmparejamientos, 300);
-  }
-});
+  const lastId = localStorage.getItem('
