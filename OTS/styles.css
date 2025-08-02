@@ -1,260 +1,300 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #121212;
+  background: #181818;
   color: #fff;
   margin: 0;
-  padding-bottom: 80px;
-  user-select: none;
-}
-
-header {
-  text-align: center;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-h1 {
-  color: #d62828;
-  font-size: 2.4rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-#rondaInfo {
-  color: #fff;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0.3em 0 1em 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  position: relative;
 }
 
 .container {
-  padding: 20px;
-  background: linear-gradient(rgba(18, 18, 18, 0.96), rgba(18, 18, 18, 0.96)), url('LCG.png') no-repeat center 55%;
-  background-size: 260px;
-  background-attachment: local;
-  min-height: 400px;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 40px;
+}
+
+.titulo-rojo {
+  color: #e53935;
+  font-size: 2.7rem;
+  margin: 30px 0 8px 0;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.ronda-info {
+  font-size: 2.3rem;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.search-box {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 18px;
 }
 
-input[type="text"] {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 8px 0 0 8px;
+#konamiId {
   width: 100%;
-  max-width: 400px;
-  font-size: 20px;
-  text-align: center;
+  max-width: 480px;
+  font-size: 1.5rem;
+  padding: 12px;
+  border-radius: 10px;
   border: none;
   outline: none;
-  background: #181818;
+  background: #232323;
   color: #fff;
-  font-weight: bold;
-  box-shadow: 0 2px 8px 0 rgba(50, 50, 50, 0.08);
-  margin-bottom: 10px;
-  display: inline-block;
-  vertical-align: middle;
+  text-align: center;
+  margin-bottom: 12px;
 }
 
 #btnBuscar {
-  margin-left: -6px;
-  border-radius: 0 8px 8px 0;
-  background: #d62828;
+  background: #e53935;
   color: #fff;
   border: none;
-  padding: 10px 26px;
+  padding: 10px 32px;
+  font-size: 1.25rem;
   font-weight: bold;
-  font-size: 19px;
+  border-radius: 7px;
   cursor: pointer;
+  margin-bottom: 10px;
   transition: background 0.2s;
-  vertical-align: middle;
 }
 
-#btnBuscar:hover {
-  background: #a02020;
+#btnBuscar:hover, #btnBuscar:focus {
+  background: #b71c1c;
+}
+
+#tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0 10px 0;
+  gap: 16px;
+}
+
+#tab-buttons button {
+  background: #232323;
+  color: #fff;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 8px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#tab-buttons button.active {
+  background: #e53935;
+  color: #fff;
+}
+
+.mensaje-personalizado {
+  font-size: 1.4rem;
+  color: #fff;
+  background: rgba(30,30,30,0.90);
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  font-weight: 500;
+  margin: 35px 0 25px 0;
 }
 
 .mesa {
   text-align: center;
-  font-size: 1.6rem;
   font-weight: bold;
-  margin-bottom: 8px;
-  color: #d62828;
+  font-size: 1.45rem;
+  margin: 14px 0 0 0;
   letter-spacing: 1px;
 }
 
 .card {
-  background: #1E1E1E;
-  border-radius: 13px;
-  width: 350px;
-  max-width: 95vw;
-  text-align: center;
-  margin-bottom: 22px;
-  position: relative;
-  box-shadow: 0 4px 18px 0 rgba(40,40,40,0.19);
+  margin: 16px 0 0 0;
+  background: #232323;
+  border-radius: 15px;
+  box-shadow: 0 4px 16px 2px rgba(0,0,0,0.15);
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  position: relative;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 170px;
 }
 
-.linea-roja, .linea-azul {
-  height: 7px;
-  border-radius: 13px 13px 0 0;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  width: 100%;
-}
 .linea-roja {
-  background-color: #d62828;
-  border-radius: 13px 13px 0 0;
+  width: 100%;
+  height: 7px;
+  background: #e53935;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
+
 .linea-azul {
-  background-color: #007bff;
-  border-radius: 0 0 13px 13px;
+  width: 100%;
+  height: 7px;
+  background: #2196f3;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   margin-top: auto;
 }
 
 .jugador, .oponente {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: bold;
-  margin-top: 14px;
-  margin-bottom: 3px;
-  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 
 .konami, .konami-opo {
-  color: #ccc;
+  text-align: center;
   font-size: 1rem;
-  font-weight: normal;
-  margin-bottom: 0px;
-  margin-top: 0;
+  color: #b0b0b0;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .vs-label {
   text-align: center;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #fff;
-  margin: 18px 0 0 0;
-  padding: 0;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #181818;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 12px 0;
-  z-index: 4;
-}
-
-footer button {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 11px 22px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 17px;
-}
-footer button.active {
-  background-color: #d62828;
-}
-
-/* Standing */
-.standing-box {
-  background: #1b1b1be0;
-  border-radius: 10px;
-  margin: 0 auto 0.8em auto;
-  padding: 9px 16px;
+  margin: 15px 0 10px 0;
   font-size: 1.4rem;
-  text-align: center;
-  width: 90%;
-  max-width: 350px;
   font-weight: bold;
-  letter-spacing: 0.7px;
+  letter-spacing: 1.5px;
 }
 
-/* HISTORIAL */
+#historyContainer {
+  margin-top: 10px;
+}
+
+.standing-box {
+  background: #232323;
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 14px;
+  padding: 7px 0 5px 0;
+  margin-bottom: 4px;
+  margin-top: 12px;
+}
+
+.standing-medal {
+  font-size: 1.5em;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.standing-1 { color: gold; }
+.standing-2 { color: #b8b8b8; }
+.standing-3 { color: #b87333; }
+
+.jugador-historial {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 10px 0 18px 0;
+}
+
 .historial-caja {
   display: flex;
   align-items: stretch;
-  margin: 0 auto 16px auto;
-  border-radius: 9px;
-  background: #191919ef;
-  box-shadow: 0 2px 12px 0 rgba(50, 50, 50, 0.14);
-  width: 97%;
-  max-width: 410px;
+  background: #232323;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 12px 1px rgba(0,0,0,0.10);
+  position: relative;
+  min-height: 80px;
 }
 
 .historial-barra {
-  width: 9px;
-  min-width: 9px;
-  border-radius: 7px 0 0 7px;
-  margin-right: 0px;
+  width: 10px;
+  border-radius: 14px 0 0 14px;
+  margin-right: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.result-win {
-  background-color: #4CAF50 !important;
-  color: #4CAF50 !important;
-}
-.result-loss {
-  background-color: #F44336 !important;
-  color: #F44336 !important;
-}
-.result-draw {
-  background-color: #B0BEC5 !important;
-  color: #B0BEC5 !important;
-}
+.result-win { background: #4CAF50; }
+.result-loss { background: #E53935; }
+.result-draw { background: #9E9E9E; }
 
 .contenido-historial {
-  padding: 13px 14px 10px 14px;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 10px 10px 10px 0;
   min-width: 0;
 }
+
 .ronda-resultado {
-  font-size: 1.22rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin-bottom: 2px;
+  margin-bottom: 7px;
   text-align: left;
+  letter-spacing: 1px;
 }
+
+.ronda-resultado.result-win { color: #4CAF50; }
+.ronda-resultado.result-loss { color: #E53935; }
+.ronda-resultado.result-draw { color: #9E9E9E; }
+
 .vs-nombre {
+  font-size: 1.17rem;
   color: #fff;
-  font-size: 1.13rem;
   font-weight: bold;
+  margin-bottom: 0;
   text-align: left;
-  margin-bottom: 0px;
-  word-break: break-word;
 }
 
-/* Mensaje personalizado */
-#mensajePersonalizado {
-  background: rgba(22, 22, 22, 0.92);
-  border-radius: 10px;
-  color: #fff;
-  padding: 30px 25px;
-  margin-top: 35px;
-  font-size: 1.35rem;
-  max-width: 420px;
-  text-align: center;
-  box-shadow: 0 2px 16px 0 rgba(30,30,30,0.11);
+.logo-fondo {
+  position: fixed;
+  left: 50%;
+  top: 57%;
+  width: 500px;
+  max-width: 95vw;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: 0.12;
+  user-select: none;
+  pointer-events: none;
+  filter: brightness(1.1) drop-shadow(0 2px 8px #000);
 }
 
+/* Responsive */
 @media (max-width: 600px) {
-  .card, .standing-box, .historial-caja {
-    width: 97vw;
-    max-width: 98vw;
-    min-width: 0;
-  }
   .container {
-    background-size: 50vw;
-    min-height: 310px;
-    padding: 
+    padding-bottom: 40px;
+  }
+  .titulo-rojo {
+    font-size: 2.0rem;
+    margin: 18px 0 4px 0;
+  }
+  .logo-fondo {
+    width: 90vw;
+    min-width: 280px;
+    left: 50%;
+    top: 55%;
+  }
+  .jugador, .oponente {
+    font-size: 1.15rem;
+  }
+  .jugador-historial {
+    font-size: 1.25rem;
+  }
+  .standing-box {
+    font-size: 1.25rem;
+    padding: 5px 0 5px 0;
+  }
+}
+
+::-webkit-scrollbar { width: 8px; background: #1a1a1a;}
+::-webkit-scrollbar-thumb { background: #222; border-radius: 8px;}
