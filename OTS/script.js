@@ -86,7 +86,6 @@ function buscarEmparejamientos(noAutoSwitch) {
   if (!tournamentData || !input) return;
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
-  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
 
   let encontrado = false;
   let emparejamiento = null;
@@ -188,37 +187,4 @@ function mostrarHistorial(input, standing, nombreJugador) {
     if (resultado === 'Victoria') {
       colorBarra = 'result-win';
       colorTexto = 'result-win';
-    } else if (resultado === 'Derrota') {
-      colorBarra = 'result-loss';
-      colorTexto = 'result-loss';
-    } else {
-      colorBarra = 'result-draw';
-      colorTexto = 'result-draw';
-    }
-
-    content += `
-      <div class="historial-caja" style="position:relative;">
-        <div class="historial-barra ${colorBarra}"></div>
-        <div class="contenido-historial">
-          <div class="ronda-resultado ${colorTexto}">Ronda ${ronda} - ${resultado}</div>
-          <div class="vs-nombre">VS ${nombreOponente}</div>
-        </div>
-      </div>
-    `;
-  });
-
-  historyContainer.innerHTML = content;
-}
-
-// Alternar pestañas
-function mostrarTab(tab) {
-  if (tab === 'ronda') {
-    document.getElementById('tableContainer').style.display = '';
-    document.getElementById('historyContainer').style.display = 'none';
-    document.getElementById('btnRonda').classList.add('active');
-    document.getElementById('btnHistorial').classList.remove('active');
-  } else {
-    document.getElementById('tableContainer').style.display = 'none';
-    document.getElementById('historyContainer').style.display = '';
-    document.getElementById('btnHistorial').classList.add('active');
-    document.getElementById('btn
+    } else if (resultado
