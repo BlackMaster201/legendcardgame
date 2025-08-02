@@ -43,7 +43,7 @@ fetch('1.txt')
             let standing = p.querySelector("Rank")?.textContent || "-";
             let dropRound = p.querySelector("DropRound")?.textContent || "0";
             let drop = (dropRound && parseInt(dropRound) > 0);
-            let txt = "";
+            let txt = "<span style='color:#FFD700'>Standing:</span> ";
             if (parseInt(standing) === 1) txt += "🥇 ";
             else if (parseInt(standing) === 2) txt += "🥈 ";
             else if (parseInt(standing) === 3) txt += "🥉 ";
@@ -98,12 +98,14 @@ fetch('1.txt')
 
           tableContainer.innerHTML = `
             <div class="card">
+              <div class="linea-roja"></div>
               <div class="mesa">MESA ${mesa}</div>
               <div class="jugador">${nombreJugador}</div>
               <div class="konami">${konamiId}</div>
               <div class="vs-label">VS</div>
               <div class="oponente">${nombreOponente || "BYE"}</div>
               <div class="konami-opo">${idOponente || ""}</div>
+              <div class="linea-azul"></div>
             </div>
           `;
         } else {
@@ -147,8 +149,11 @@ fetch('1.txt')
               "result-draw";
             return `
               <div class="historial-caja">
-                <span class="ronda-resultado ${color}">Ronda ${item.round} - ${item.resultado}</span>
-                <span class="vs-nombre">VS ${nombreOponente}</span>
+                <div class="historial-barra ${color}"></div>
+                <div class="contenido-historial">
+                  <span class="ronda-resultado ${color}">Ronda ${item.round} - ${item.resultado}</span>
+                  <span class="vs-nombre">VS ${nombreOponente}</span>
+                </div>
               </div>
             `;
           }).join('')}
@@ -163,35 +168,4 @@ fetch('1.txt')
         if (e.key === "Enter") buscarEmparejamientos();
       });
       btnRonda.onclick = () => {
-        btnRonda.classList.add("active");
-        btnHistorial.classList.remove("active");
-        tableContainer.style.display = "";
-        historyContainer.style.display = "none";
-      };
-      btnHistorial.onclick = () => {
-        btnHistorial.classList.add("active");
-        btnRonda.classList.remove("active");
-        tableContainer.style.display = "none";
-        historyContainer.style.display = "";
-      };
-
-      // Restaurar el último ID buscado
-      if (localStorage.getItem("konamiId")) {
-        input.value = localStorage.getItem("konamiId");
-        buscarEmparejamientos();
-      }
-      input.addEventListener("input", () => {
-        localStorage.setItem("konamiId", input.value.trim());
-      });
-    }
-  })
-  .catch(() => {
-    document.getElementById("mensajePersonalizado").style.display = "block";
-    document.getElementById("mensajePersonalizado").textContent = "No se encontró el archivo 1.txt";
-    document.getElementById("konamiId").style.display = "none";
-    document.getElementById("tableContainer").style.display = "none";
-    document.getElementById("historyContainer").style.display = "none";
-    document.getElementById("btnRonda").style.display = "none";
-    document.getElementById("btnHistorial").style.display = "none";
-    document.getElementById("rondaInfo").style.display = "none";
-  });
+        btnRonda.class
