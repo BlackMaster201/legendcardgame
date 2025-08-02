@@ -104,7 +104,7 @@ footer button.active {
 .card {
   background: #1E1E1E;
   border-radius: 10px;
-  padding: 14px 18px 18px 18px;
+  padding: 0 18px 18px 18px;
   margin-bottom: 22px;
   text-align: center;
   box-shadow: 0 2px 12px #0003;
@@ -134,13 +134,24 @@ footer button.active {
   font-weight: bold;
   font-size: 1.20rem;
   color: #d62828;
-  margin-bottom: 12px;
-  margin-top: 8px;
+  margin-bottom: 0;
+  margin-top: 0;
   letter-spacing: 1px;
   background: none;
   padding: 0;
 }
-.card .jugador {
+.card .mesa-out {
+  font-weight: bold;
+  font-size: 1.15rem;
+  color: #d62828;
+  margin-bottom: 7px;
+  margin-top: 7px;
+  letter-spacing: 1px;
+  background: none;
+  text-align: center;
+  width: 100%;
+}
+.card .jugador, .card .oponente {
   font-size: 1.16rem;
   font-weight: bold;
   margin-bottom: 0px;
@@ -148,7 +159,7 @@ footer button.active {
   color: #fff;
   text-align: center;
 }
-.card .konami {
+.card .konami, .card .konami-opo {
   font-size: 0.93rem;
   color: #bbbbbb;
   margin-bottom: 8px;
@@ -163,21 +174,6 @@ footer button.active {
   margin: 18px 0 18px 0;
   letter-spacing: 2px;
 }
-.card .oponente {
-  font-size: 1.16rem;
-  font-weight: bold;
-  margin-top: 4px;
-  color: #fff;
-  text-align: center;
-}
-.card .konami-opo {
-  font-size: 0.93rem;
-  color: #bbbbbb;
-  margin-bottom: 0;
-  font-weight: normal;
-  text-align: center;
-}
-
 .standing-box {
   font-weight: bold;
   margin-bottom: 12px;
