@@ -488,9 +488,9 @@
 			<Player>400213111</Player>
 			<Player>412677101</Player>
 			<Round>3</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>1</Table>
-			<Winner>0</Winner>
+			<Winner>400213111</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -515,9 +515,9 @@
 			<Player>401923793</Player>
 			<Player>412578138</Player>
 			<Round>3</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>4</Table>
-			<Winner>0</Winner>
+			<Winner>401923793</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -542,18 +542,18 @@
 			<Player>412425726</Player>
 			<Player>414162367</Player>
 			<Round>3</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>7</Table>
-			<Winner>0</Winner>
+			<Winner>414162367</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400400602</Player>
 			<Player>401239367</Player>
 			<Round>3</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>8</Table>
-			<Winner>0</Winner>
+			<Winner>400400602</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
