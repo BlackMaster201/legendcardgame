@@ -1,4 +1,20 @@
-// Detectar si el archivo es solo texto o XML de torneo
+let lastModified = null;
+let refreshInterval = 4000; // ms
+
+// Polling para detectar cambios y recargar si cambia el archivo
+function watchTournamentFile() {
+  fetch('1.txt', { method: 'HEAD' })
+    .then(resp => {
+      let lm = resp.headers.get('Last-Modified');
+      if (lastModified && lm && lm !== lastModified) {
+        location.reload();
+      }
+      lastModified = lm;
+      setTimeout(watchTournamentFile, refreshInterval);
+    }).catch(() => setTimeout(watchTournamentFile, refreshInterval));
+}
+watchTournamentFile();
+
 fetch('1.txt')
   .then(resp => resp.text())
   .then(texto => {
@@ -22,7 +38,6 @@ fetch('1.txt')
       document.getElementById("btnHistorial").style.display = "";
       document.getElementById("rondaInfo").style.display = "";
 
-      // -------- APP DE PAREOS NORMAL --------
       let tournamentData = null, currentRound = 0;
       const input = document.getElementById("konamiId");
       const btnRonda = document.getElementById("btnRonda");
@@ -71,7 +86,6 @@ fetch('1.txt')
         // Mostrar ronda actual
         let rondaActual = tournamentData.querySelector("CurrentRound")?.textContent || "0";
         rondaActual = parseInt(rondaActual);
-
         rondaInfo.textContent = `Ronda: ${rondaActual}`;
 
         // Encontrar emparejamiento de la ronda actual
@@ -96,15 +110,16 @@ fetch('1.txt')
           let nombreOponente = oponente ? `${oponente.querySelector("FirstName")?.textContent || ""} ${oponente.querySelector("LastName")?.textContent || ""}` : "";
           let idOponente = oponente ? padId(oponente.querySelector("ID")?.textContent || "") : "";
 
+          // Aquí: la mesa debe ir **fuera** del recuadro principal, y solo las líneas y datos entre rojo y azul
           tableContainer.innerHTML = `
+            <div class="mesa-out">MESA ${mesa}</div>
             <div class="card">
               <div class="linea-roja"></div>
-              <div class="mesa">MESA ${mesa}</div>
-              <div class="jugador">${nombreJugador}</div>
-              <div class="konami">${konamiId}</div>
-              <div class="vs-label">VS</div>
-              <div class="oponente">${nombreOponente || "BYE"}</div>
-              <div class="konami-opo">${idOponente || ""}</div>
+                <div class="jugador">${nombreJugador}</div>
+                <div class="konami">${konamiId}</div>
+                <div class="vs-label">VS</div>
+                <div class="oponente">${nombreOponente || "BYE"}</div>
+                <div class="konami-opo">${idOponente || ""}</div>
               <div class="linea-azul"></div>
             </div>
           `;
@@ -163,10 +178,17 @@ fetch('1.txt')
       // Cargar el archivo y activar eventos
       const parser = new DOMParser();
       tournamentData = parser.parseFromString(texto, "text/xml");
-      input.addEventListener("change", buscarEmparejamientos);
-      input.addEventListener("keyup", (e) => {
-        if (e.key === "Enter") buscarEmparejamientos();
+
+      // Restaurar el último ID buscado
+      if (localStorage.getItem("konamiId")) {
+        input.value = localStorage.getItem("konamiId");
+        buscarEmparejamientos();
+      }
+      input.addEventListener("input", () => {
+        localStorage.setItem("konamiId", input.value.trim());
       });
+
+      // Alternar entre ronda/historial
       btnRonda.onclick = () => {
         btnRonda.classList.add("active");
         btnHistorial.classList.remove("active");
@@ -179,15 +201,6 @@ fetch('1.txt')
         tableContainer.style.display = "none";
         historyContainer.style.display = "";
       };
-
-      // Restaurar el último ID buscado
-      if (localStorage.getItem("konamiId")) {
-        input.value = localStorage.getItem("konamiId");
-        buscarEmparejamientos();
-      }
-      input.addEventListener("input", () => {
-        localStorage.setItem("konamiId", input.value.trim());
-      });
     }
   })
   .catch(() => {
