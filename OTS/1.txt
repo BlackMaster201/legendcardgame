@@ -9,9 +9,9 @@
 	<ReferenceDateTime>2003-01-02</ReferenceDateTime>
 	<Date>2025-08-02</Date>
 	<Time>11:11</Time>
-	<CurrentRound>5</CurrentRound>
+	<CurrentRound>6</CurrentRound>
 	<TableOffset>0</TableOffset>
-	<PlayoffRound>0</PlayoffRound>
+	<PlayoffRound>6</PlayoffRound>
 	<SoftwareVersion>3.0.0.0</SoftwareVersion>
 	<Finalized>False</Finalized>
 	<Staff>
@@ -39,10 +39,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>3</Rank>
+			<Rank>6</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9687505</Points>
+			<Points>9693530</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -58,8 +58,8 @@
 			<DropRound>0</DropRound>
 			<Rank>1</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>12</Wins>
-			<Points>12694618</Points>
+			<Wins>15</Wins>
+			<Points>15666620</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -72,13 +72,13 @@
 				<LastName>Avilés Guzmán</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>11</Rank>
+			<DropRound>5</DropRound>
+			<Rank>9</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6437630</Points>
+			<Wins>9</Wins>
+			<Points>9400571</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -89,13 +89,13 @@
 				<LastName>Suarez Ramos</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>13</Rank>
+			<DropRound>5</DropRound>
+			<Rank>15</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3666486</Points>
+			<Points>3600484</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -107,10 +107,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>6</Rank>
+			<Rank>4</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>7</Wins>
-			<Points>7583529</Points>
+			<Wins>10</Wins>
+			<Points>10653573</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -123,13 +123,13 @@
 				<LastName>Martinez Flores</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>12</Rank>
+			<DropRound>5</DropRound>
+			<Rank>11</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6437489</Points>
+			<Points>6493497</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -140,13 +140,13 @@
 				<LastName>Urbiola Camargo</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>9</Rank>
+			<DropRound>5</DropRound>
+			<Rank>14</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500538</Points>
+			<Points>6480507</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -161,7 +161,7 @@
 			<Rank>2</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12437522</Points>
+			<Points>12520539</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -175,10 +175,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>5</Rank>
+			<Rank>3</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9437588</Points>
+			<Wins>12</Wins>
+			<Points>12440583</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -192,10 +192,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>7</Rank>
+			<Rank>5</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>7</Wins>
-			<Points>7458544</Points>
+			<Wins>10</Wins>
+			<Points>10493550</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -211,8 +211,8 @@
 			<DropRound>0</DropRound>
 			<Rank>8</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6520489</Points>
+			<Wins>9</Wins>
+			<Points>9533511</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -225,13 +225,13 @@
 				<LastName>Aguilar Hernández</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>15</Rank>
+			<DropRound>5</DropRound>
+			<Rank>12</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3520450</Points>
+			<Wins>6</Wins>
+			<Points>6493489</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -242,13 +242,13 @@
 				<LastName>Ramirez</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>16</Rank>
+			<DropRound>5</DropRound>
+			<Rank>13</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3472520</Points>
+			<Wins>6</Wins>
+			<Points>6483557</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -259,13 +259,13 @@
 				<LastName>Salas Cruz</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
+			<DropRound>5</DropRound>
 			<Rank>17</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>500489</Points>
+			<Wins>3</Wins>
+			<Points>3450506</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -276,13 +276,13 @@
 				<LastName>Gonzalez Cruz</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>14</Rank>
+			<DropRound>5</DropRound>
+			<Rank>16</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3666458</Points>
+			<Points>3550473</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -294,10 +294,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>4</Rank>
+			<Rank>7</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9583565</Points>
+			<Points>9613527</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -310,13 +310,13 @@
 				<LastName>Meneses Navarro</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
+			<DropRound>5</DropRound>
 			<Rank>10</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500515</Points>
+			<Points>6520525</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -668,9 +668,9 @@
 			<Player>400116129</Player>
 			<Player>401492512</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>3</Table>
-			<Winner>0</Winner>
+			<Winner>401492512</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -686,9 +686,9 @@
 			<Player>411046278</Player>
 			<Player>414162367</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>5</Table>
-			<Winner>0</Winner>
+			<Winner>411046278</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -726,6 +726,42 @@
 			<Table>9</Table>
 			<Winner>412425726</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400213111</Player>
+			<Player>411046278</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>1</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>True</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401492512</Player>
+			<Player>406883091</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>2</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>True</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402243437</Player>
+			<Player>412677101</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>3</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>True</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400116129</Player>
+			<Player>404858371</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>4</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>True</PlayoffMatch>
 		</TournMatch>
 	</Matches>
 </Tournament>
