@@ -29,7 +29,6 @@ async function cargarTorneo(noAutoSwitch) {
   const response = await fetch('1.txt');
   const text = await response.text();
 
-  // Si el archivo parece XML, parsea normalmente
   if (text.trim().startsWith('<?xml')) {
     const parser = new DOMParser();
     tournamentData = parser.parseFromString(text, 'text/xml');
@@ -39,7 +38,6 @@ async function cargarTorneo(noAutoSwitch) {
     ocultarMensajePersonalizado();
     buscarEmparejamientos(noAutoSwitch);
   } else {
-    // Si es texto plano, muestra como mensaje personalizado
     document.getElementById('rondaInfo').textContent = '';
     mostrarMensajePersonalizado(text);
   }
@@ -58,24 +56,18 @@ function getPlayerInfo(id) {
   return { nombre, standing, isDrop };
 }
 
-function getStandingHTML(standing, nombreJugador) {
-  let clase = '';
-  let medalla = '';
-  if (standing == 1) {
-    clase = 'standing-1';
-    medalla = '<span class="standing-medal">🥇</span>';
-  } else if (standing == 2) {
-    clase = 'standing-2';
-    medalla = '<span class="standing-medal">🥈</span>';
-  } else if (standing == 3) {
-    clase = 'standing-3';
-    medalla = '<span class="standing-medal">🥉</span>';
-  } else if (standing == '-' || standing == undefined) {
-    clase = '';
-    medalla = '';
+function mostrarTab(tab) {
+  if (tab === "ronda") {
+    document.getElementById('tableContainer').style.display = '';
+    document.getElementById('historyContainer').style.display = 'none';
+    document.getElementById('btnRonda').classList.add('active');
+    document.getElementById('btnHistorial').classList.remove('active');
+  } else {
+    document.getElementById('tableContainer').style.display = 'none';
+    document.getElementById('historyContainer').style.display = '';
+    document.getElementById('btnHistorial').classList.add('active');
+    document.getElementById('btnRonda').classList.remove('active');
   }
-  return `<div class="standing-box standing-${clase}">Standing: <br><span class="${clase}">${standing || '-'}</span>${medalla}</div>
-  <div class="standing-nombre">${nombreJugador}</div>`;
 }
 
 function buscarEmparejamientos(noAutoSwitch) {
@@ -86,6 +78,7 @@ function buscarEmparejamientos(noAutoSwitch) {
   if (!tournamentData || !input) return;
 
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
+  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
 
   let encontrado = false;
   let emparejamiento = null;
@@ -124,7 +117,7 @@ function buscarEmparejamientos(noAutoSwitch) {
   if (encontrado) {
     tableContainer.innerHTML = `
       <div class="mesa"><span>MESA ${mesa}</span></div>
-      <div class="card" style="margin-bottom: 22px;">
+      <div class="card">
         <div class="linea-roja"></div>
           <div class="jugador">${nombreJugador}</div>
           <div class="konami">${input}</div>
@@ -141,7 +134,7 @@ function buscarEmparejamientos(noAutoSwitch) {
   // Mostrar historial
   mostrarHistorial(input, standingJugador, nombreJugador);
 
-  // En la primera búsqueda, si no es "auto", asegúrate que el tab esté en Ronda
+  // Siempre que se busque, mostrar ronda por defecto (a menos que se especifique lo contrario)
   if (!noAutoSwitch) mostrarTab('ronda');
 }
 
@@ -178,8 +171,16 @@ function mostrarHistorial(input, standing, nombreJugador) {
 
   historial.sort((a, b) => b.ronda - a.ronda);
 
-  // Mostrar standing y nombre arriba
-  let content = getStandingHTML(standing, nombreJugador);
+  // Medallas standings
+  let medalla = '';
+  if (parseInt(standing, 10) === 1) medalla = '🥇';
+  else if (parseInt(standing, 10) === 2) medalla = '🥈';
+  else if (parseInt(standing, 10) === 3) medalla = '🥉';
+
+  let standingHTML = `<div class="standing-box">Standing: <span>${standing || '-'}</span>${medalla ? `<span class="medalla">${medalla}</span>` : ''}</div>
+  <div class="jugador-historial">${nombreJugador}</div>`;
+
+  let content = standingHTML;
 
   historial.forEach(({ ronda, resultado, nombreOponente }) => {
     let colorBarra = '';
@@ -196,7 +197,7 @@ function mostrarHistorial(input, standing, nombreJugador) {
     }
 
     content += `
-      <div class="historial-caja" style="position:relative;">
+      <div class="historial-caja">
         <div class="historial-barra ${colorBarra}"></div>
         <div class="contenido-historial">
           <div class="ronda-resultado ${colorTexto}">Ronda ${ronda} - ${resultado}</div>
@@ -210,26 +211,18 @@ function mostrarHistorial(input, standing, nombreJugador) {
 }
 
 // Alternar pestañas
-function mostrarTab(tab) {
-  if (tab === 'ronda') {
-    document.getElementById('tableContainer').style.display = '';
-    document.getElementById('historyContainer').style.display = 'none';
-    document.getElementById('btnRonda').classList.add('active');
-    document.getElementById('btnHistorial').classList.remove('active');
-  } else {
-    document.getElementById('tableContainer').style.display = 'none';
-    document.getElementById('historyContainer').style.display = '';
-    document.getElementById('btnHistorial').classList.add('active');
-    document.getElementById('btnRonda').classList.remove('active');
-  }
-}
+document.getElementById('btnRonda').addEventListener('click', () => {
+  mostrarTab('ronda');
+});
+document.getElementById('btnHistorial').addEventListener('click', () => {
+  mostrarTab('historial');
+});
 
-// Event listeners
-document.getElementById('btnRonda').addEventListener('click', () => mostrarTab('ronda'));
-document.getElementById('btnHistorial').addEventListener('click', () => mostrarTab('historial'));
-document.getElementById('btnBuscar').addEventListener('click', () => {
+// Botón buscar
+document.getElementById('buscarBtn').addEventListener('click', () => {
   buscarEmparejamientos(false);
 });
+
 document.getElementById('konamiId').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') {
     buscarEmparejamientos(false);
@@ -238,10 +231,9 @@ document.getElementById('konamiId').addEventListener('keydown', function(e) {
 
 // Al cambiar el ID o al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-  cargarTorneo(true);
+  cargarTorneo(true); // No autoswitch tab, solo carga datos
+  mostrarTab('ronda');
   const lastId = localStorage.getItem('konamiId');
   if (lastId) {
     document.getElementById('konamiId').value = lastId;
     setTimeout(() => buscarEmparejamientos(true), 300);
-  }
-});
