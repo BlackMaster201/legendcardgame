@@ -164,9 +164,18 @@ function mostrarHistorial(input, standing, nombreJugador) {
       const idOponente = input === p1 ? p2 : p1;
       const infoOpo = getPlayerInfo(idOponente);
       const nombreOponente = infoOpo ? infoOpo.nombre : '';
-      let resultado = 'Empate';
-      if (winner === input) resultado = 'Victoria';
-      else if (winner === idOponente) resultado = 'Derrota';
+      let resultado = '';
+if (!winner || winner === '0') {
+  if (round === currentRound) {
+    resultado = 'En curso';
+  } else {
+    resultado = 'Empate';
+  }
+} else if (winner === input) {
+  resultado = 'Victoria';
+} else if (winner === idOponente) {
+  resultado = 'Derrota';
+}
       historial.push({
         ronda: round,
         resultado,
