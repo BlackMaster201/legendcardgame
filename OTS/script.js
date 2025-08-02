@@ -58,6 +58,20 @@ function getPlayerInfo(id) {
   return { nombre, standing, isDrop };
 }
 
+function getMedalla(standing) {
+  if (parseInt(standing) === 1) return "🥇";
+  if (parseInt(standing) === 2) return "🥈";
+  if (parseInt(standing) === 3) return "🥉";
+  return "";
+}
+
+function getStandingColor(standing) {
+  if (parseInt(standing) === 1) return "#FFD700"; // oro
+  if (parseInt(standing) === 2) return "#B0C4DE"; // plata
+  if (parseInt(standing) === 3) return "#CD7F32"; // bronce
+  return "#fff";
+}
+
 function buscarEmparejamientos() {
   const inputRaw = document.getElementById('konamiId').value.trim();
   const input = padId(inputRaw);
@@ -104,7 +118,7 @@ function buscarEmparejamientos() {
   const tableContainer = document.getElementById('tableContainer');
   if (encontrado) {
     tableContainer.innerHTML = `
-      <div class="mesa"><span>MESA ${mesa}</span></div>
+      <div class="mesa"><span>Mesa: ${mesa}</span></div>
       <div class="card">
         <div class="linea-roja"></div>
           <div class="jugador">${nombreJugador}</div>
@@ -157,9 +171,12 @@ function mostrarHistorial(input, standing, nombreJugador) {
 
   historial.sort((a, b) => b.ronda - a.ronda);
 
-  // Mostrar standing y nombre arriba
-  let standingHTML = `<div class="standing-box">Standing: <span>${standing || '-'}</span></div>
-  <div class="jugador" style="text-align:center;">${nombreJugador}</div>`;
+  // Standing con color y medalla
+  let colorStanding = getStandingColor(standing);
+  let standingHTML = `<div class="standing-box" style="color:${colorStanding};font-weight:bold;">
+      Standing: ${getMedalla(standing)} <span>${standing || '-'}</span>
+    </div>
+    <div class="jugador" style="text-align:center; font-weight:bold; color:#fff; margin-bottom: 10px;">${nombreJugador}</div>`;
 
   let content = standingHTML;
 
@@ -205,6 +222,12 @@ document.getElementById('btnHistorial').addEventListener('click', () => {
   document.getElementById('btnRonda').classList.remove('active');
 });
 
+// BOTÓN DE BUSCAR Y ACTUALIZAR
+document.getElementById('btnBuscar').addEventListener('click', () => {
+  cargarTorneo();
+  buscarEmparejamientos();
+});
+
 // Al cambiar el ID o al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
   cargarTorneo();
@@ -214,4 +237,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(buscarEmparejamientos, 300);
   }
   document.getElementById('konamiId').addEventListener('input', buscarEmparejamientos);
+
+  // Permitir Enter para buscar
+  document.getElementById('konamiId').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      cargarTorneo();
+      buscarEmparejamientos();
+    }
+  });
 });
