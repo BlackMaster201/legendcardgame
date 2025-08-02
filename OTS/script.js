@@ -25,10 +25,11 @@ function ocultarMensajePersonalizado() {
   document.getElementById('historyContainer').style.display = '';
 }
 
-async function cargarTorneo(noAutoSwitch) {
+async function cargarTorneo() {
   const response = await fetch('1.txt');
   const text = await response.text();
 
+  // Si el archivo parece XML, parsea normalmente
   if (text.trim().startsWith('<?xml')) {
     const parser = new DOMParser();
     tournamentData = parser.parseFromString(text, 'text/xml');
@@ -36,8 +37,9 @@ async function cargarTorneo(noAutoSwitch) {
     currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
     ocultarMensajePersonalizado();
-    buscarEmparejamientos(noAutoSwitch);
+    buscarEmparejamientos();
   } else {
+    // Si es texto plano, muestra como mensaje personalizado
     document.getElementById('rondaInfo').textContent = '';
     mostrarMensajePersonalizado(text);
   }
@@ -56,21 +58,7 @@ function getPlayerInfo(id) {
   return { nombre, standing, isDrop };
 }
 
-function mostrarTab(tab) {
-  if (tab === "ronda") {
-    document.getElementById('tableContainer').style.display = '';
-    document.getElementById('historyContainer').style.display = 'none';
-    document.getElementById('btnRonda').classList.add('active');
-    document.getElementById('btnHistorial').classList.remove('active');
-  } else {
-    document.getElementById('tableContainer').style.display = 'none';
-    document.getElementById('historyContainer').style.display = '';
-    document.getElementById('btnHistorial').classList.add('active');
-    document.getElementById('btnRonda').classList.remove('active');
-  }
-}
-
-function buscarEmparejamientos(noAutoSwitch) {
+function buscarEmparejamientos() {
   const inputRaw = document.getElementById('konamiId').value.trim();
   const input = padId(inputRaw);
   localStorage.setItem('konamiId', input);
@@ -116,7 +104,7 @@ function buscarEmparejamientos(noAutoSwitch) {
   const tableContainer = document.getElementById('tableContainer');
   if (encontrado) {
     tableContainer.innerHTML = `
-      <div class="mesa"><span>MESA ${mesa}</span></div>
+      <div class="mesa">MESA ${mesa}</div>
       <div class="card">
         <div class="linea-roja"></div>
           <div class="jugador">${nombreJugador}</div>
@@ -133,9 +121,6 @@ function buscarEmparejamientos(noAutoSwitch) {
 
   // Mostrar historial
   mostrarHistorial(input, standingJugador, nombreJugador);
-
-  // Siempre que se busque, mostrar ronda por defecto (a menos que se especifique lo contrario)
-  if (!noAutoSwitch) mostrarTab('ronda');
 }
 
 function mostrarHistorial(input, standing, nombreJugador) {
@@ -145,6 +130,7 @@ function mostrarHistorial(input, standing, nombreJugador) {
     return;
   }
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
+  const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
 
   // Historial, de ronda más reciente a más antigua
   let historial = [];
@@ -171,14 +157,15 @@ function mostrarHistorial(input, standing, nombreJugador) {
 
   historial.sort((a, b) => b.ronda - a.ronda);
 
-  // Medallas standings
-  let medalla = '';
-  if (parseInt(standing, 10) === 1) medalla = '🥇';
-  else if (parseInt(standing, 10) === 2) medalla = '🥈';
-  else if (parseInt(standing, 10) === 3) medalla = '🥉';
+  // Medalla según standing
+  let medal = "";
+  if (standing === 1) medal = '<span class="medal">🥇</span>';
+  else if (standing === 2) medal = '<span class="medal">🥈</span>';
+  else if (standing === 3) medal = '<span class="medal">🥉</span>';
 
-  let standingHTML = `<div class="standing-box">Standing: <span>${standing || '-'}</span>${medalla ? `<span class="medalla">${medalla}</span>` : ''}</div>
-  <div class="jugador-historial">${nombreJugador}</div>`;
+  // Mostrar standing y nombre arriba
+  let standingHTML = `<div class="standing-box">Standing:<br>${standing || '-'}${medal}</div>
+  <div class="jugador" style="text-align:center;">${nombreJugador}</div>`;
 
   let content = standingHTML;
 
@@ -212,28 +199,8 @@ function mostrarHistorial(input, standing, nombreJugador) {
 
 // Alternar pestañas
 document.getElementById('btnRonda').addEventListener('click', () => {
-  mostrarTab('ronda');
+  document.getElementById('tableContainer').style.display = '';
+  document.getElementById('historyContainer').style.display = 'none';
+  document.getElementById('btnRonda').classList.add('active');
+  document.getElementById('btnHistorial').classList.remove('active');
 });
-document.getElementById('btnHistorial').addEventListener('click', () => {
-  mostrarTab('historial');
-});
-
-// Botón buscar
-document.getElementById('buscarBtn').addEventListener('click', () => {
-  buscarEmparejamientos(false);
-});
-
-document.getElementById('konamiId').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') {
-    buscarEmparejamientos(false);
-  }
-});
-
-// Al cambiar el ID o al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-  cargarTorneo(true); // No autoswitch tab, solo carga datos
-  mostrarTab('ronda');
-  const lastId = localStorage.getItem('konamiId');
-  if (lastId) {
-    document.getElementById('konamiId').value = lastId;
-    setTimeout(() => buscarEmparejamientos(true), 300);
