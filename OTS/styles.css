@@ -104,7 +104,7 @@ footer button.active {
 .card {
   background: #1E1E1E;
   border-radius: 10px;
-  padding: 0 18px 18px 18px;
+  padding: 0 0 16px 0;
   margin-bottom: 22px;
   text-align: center;
   box-shadow: 0 2px 12px #0003;
@@ -113,43 +113,33 @@ footer button.active {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%; /* Asegura ancho igual a líneas */
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.card .linea-roja {
-  height: 6px;
-  width: 100%;
-  background: #D62828;
-  border-radius: 10px 10px 0 0;
-  margin-bottom: 8px;
-}
+.card .linea-roja,
 .card .linea-azul {
   height: 6px;
   width: 100%;
-  background: #007BFF;
-  border-radius: 0 0 10px 10px;
-  margin-top: 8px;
-  position: relative;
-  bottom: 0;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
+.card .linea-roja { background: #D62828; border-radius: 10px 10px 0 0; }
+.card .linea-azul { background: #007BFF; border-radius: 0 0 10px 10px; }
+
 .card .mesa {
   font-weight: bold;
-  font-size: 1.20rem;
+  font-size: 1.5rem;
   color: #d62828;
-  margin-bottom: 0;
+  margin-bottom: 12px;
   margin-top: 0;
-  letter-spacing: 1px;
-  background: none;
-  padding: 0;
-}
-.card .mesa-out {
-  font-weight: bold;
-  font-size: 1.15rem;
-  color: #d62828;
-  margin-bottom: 7px;
-  margin-top: 7px;
   letter-spacing: 1px;
   background: none;
   text-align: center;
   width: 100%;
+  display: block;
 }
 .card .jugador, .card .oponente {
   font-size: 1.16rem;
