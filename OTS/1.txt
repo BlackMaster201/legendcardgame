@@ -9,7 +9,7 @@
 	<ReferenceDateTime>2003-01-02</ReferenceDateTime>
 	<Date>2025-08-02</Date>
 	<Time>11:11</Time>
-	<CurrentRound>6</CurrentRound>
+	<CurrentRound>7</CurrentRound>
 	<TableOffset>0</TableOffset>
 	<PlayoffRound>6</PlayoffRound>
 	<SoftwareVersion>3.0.0.0</SoftwareVersion>
@@ -39,8 +39,8 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>6</Rank>
-			<PlayoffPoints>0</PlayoffPoints>
+			<Rank>4</Rank>
+			<PlayoffPoints>1</PlayoffPoints>
 			<Wins>9</Wins>
 			<Points>9693530</Points>
 			<OpenDueling>0</OpenDueling>
@@ -57,7 +57,7 @@
 			</Player>
 			<DropRound>0</DropRound>
 			<Rank>1</Rank>
-			<PlayoffPoints>0</PlayoffPoints>
+			<PlayoffPoints>1</PlayoffPoints>
 			<Wins>15</Wins>
 			<Points>15666620</Points>
 			<OpenDueling>0</OpenDueling>
@@ -106,13 +106,13 @@
 				<LastName>Zenteno León</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>4</Rank>
+			<DropRound>6</DropRound>
+			<Rank>6</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>10</Wins>
 			<Points>10653573</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>PlayoffCut</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -159,7 +159,7 @@
 			</Player>
 			<DropRound>0</DropRound>
 			<Rank>2</Rank>
-			<PlayoffPoints>0</PlayoffPoints>
+			<PlayoffPoints>1</PlayoffPoints>
 			<Wins>12</Wins>
 			<Points>12520539</Points>
 			<OpenDueling>0</OpenDueling>
@@ -175,7 +175,7 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>3</Rank>
+			<Rank>5</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
 			<Points>12440583</Points>
@@ -192,8 +192,8 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>5</Rank>
-			<PlayoffPoints>0</PlayoffPoints>
+			<Rank>3</Rank>
+			<PlayoffPoints>1</PlayoffPoints>
 			<Wins>10</Wins>
 			<Points>10493550</Points>
 			<OpenDueling>0</OpenDueling>
@@ -731,35 +731,53 @@
 			<Player>400213111</Player>
 			<Player>411046278</Player>
 			<Round>6</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>1</Table>
-			<Winner>0</Winner>
+			<Winner>400213111</Winner>
 			<PlayoffMatch>True</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401492512</Player>
 			<Player>406883091</Player>
 			<Round>6</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>2</Table>
-			<Winner>0</Winner>
+			<Winner>406883091</Winner>
 			<PlayoffMatch>True</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402243437</Player>
 			<Player>412677101</Player>
 			<Round>6</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>3</Table>
-			<Winner>0</Winner>
+			<Winner>402243437</Winner>
 			<PlayoffMatch>True</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400116129</Player>
 			<Player>404858371</Player>
 			<Round>6</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>4</Table>
+			<Winner>400116129</Winner>
+			<PlayoffMatch>True</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400213111</Player>
+			<Player>406883091</Player>
+			<Round>7</Round>
+			<Status>Incomplete</Status>
+			<Table>1</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>True</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400116129</Player>
+			<Player>402243437</Player>
+			<Round>7</Round>
+			<Status>Incomplete</Status>
+			<Table>2</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>True</PlayoffMatch>
 		</TournMatch>
