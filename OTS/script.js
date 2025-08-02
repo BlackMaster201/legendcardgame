@@ -26,7 +26,7 @@ function ocultarMensajePersonalizado() {
 }
 
 async function cargarTorneo() {
-  const response = await fetch('1.txt');
+  const response = await fetch('1.txt?v=' + Date.now());
   const text = await response.text();
 
   // Si el archivo parece XML, parsea normalmente
