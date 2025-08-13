@@ -1,41 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Legend Card Game - Página Principal</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>LCG · Inicio</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav id="sidebar" class="sidebar">
-    <button class="sidebar-toggle" id="sidebarToggle">&#9776;</button>
-    <ul>
-      <li><a href="index.html" class="sidebar-link active">Inicio</a></li>
-      <li><a href="#">Preregistro Regional Puebla 2025</a></li>
-      <li><a href="OTS/index.html">Pareos OTS Championship</a></li>
-      <li><a href="regional/index.html">Pareos Regional Qualifier Puebla 2025</a></li>
-    </ul>
-  </nav>
-  <div class="main-content" id="mainContent">
-    <div class="principal-boxes">
-      <div class="principal-card">
-        <h2 class="principal-title">Preregistro Regional Puebla 2025</h2>
-        <p class="principal-desc">¡Inscríbete para el evento Regional Puebla 2025!</p>
-      </div>
-      <div class="principal-card" onclick="location.href='OTS/index.html'">
-        <h2 class="principal-title">Pareos OTS Championship</h2>
-        <p class="principal-desc">Consulta tus pareos para el OTS Championship.</p>
-      </div>
-      <div class="principal-card" onclick="location.href='regional/index.html'">
-        <h2 class="principal-title">Pareos Regional Qualifier Puebla 2025</h2>
-        <p class="principal-desc">Consulta tus duelos y standing en el Regional Puebla 2025.</p>
-      </div>
+  <!-- Marca de agua del logo -->
+  <div class="watermark"></div>
+
+  <header class="topbar">
+    <h1>Legend Card Game</h1>
+  </header>
+
+  <!-- CARRUSEL -->
+  <section class="carousel" aria-label="Anuncios">
+    <button class="nav prev" aria-label="Anterior">‹</button>
+    <div class="track" id="carouselTrack">
+      <!-- Reemplaza estas rutas por tus banners 1920x1080 -->
+      <div class="slide"><img src="assets/banners/banner1.jpg" alt="Anuncio 1" loading="lazy"></div>
+      <div class="slide"><img src="assets/banners/banner2.jpg" alt="Anuncio 2" loading="lazy"></div>
+      <div class="slide"><img src="assets/banners/banner3.jpg" alt="Anuncio 3" loading="lazy"></div>
     </div>
-    <footer>
-      <p>Legend Card Game © 2025. Todos los derechos reservados.</p>
-    </footer>
-  </div>
-  <img src="LCG.png" alt="Logo LCG" class="logo-fondo-main" />
-  <script src="menu.js"></script>
+    <button class="nav next" aria-label="Siguiente">›</button>
+
+    <div class="dots" id="carouselDots" role="tablist" aria-label="Paginación"></div>
+  </section>
+
+  <!-- LISTA DE CARDS -->
+  <main class="cards" id="cardsList" aria-live="polite"></main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" aria-label="Navegación inferior">
+    <a href="#" class="active"><span>🏠</span><small>Inicio</small></a>
+    <a href="#cards"><span>🗓️</span><small>Eventos</small></a>
+    <a href="#buscar"><span>🔎</span><small>Buscar</small></a>
+    <a href="#decks"><span>🃏</span><small>Decks</small></a>
+    <a href="#otros"><span>⋯</span><small>Otros</small></a>
+  </nav>
+
+  <script src="main.js"></script>
 </body>
 </html>
