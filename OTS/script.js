@@ -233,11 +233,19 @@ document.getElementById('btnRonda').addEventListener('click', mostrarRonda);
 document.getElementById('btnHistorial').addEventListener('click', mostrarHistorialTab);
 
 // Botón buscar y Enter en input
-document.getElementById('buscarBtn').addEventListener('click', () => {
-    window.location.reload();
+document.getElementById('buscarBtn').addEventListener('click', async () => {
+  const raw = document.getElementById('konamiId').value.trim();
+  const id = padId(raw);
+  localStorage.setItem('konamiId', id);   // guarda primero
+  await cargarTorneo();                   // vuelve a leer 1.txt (con cache-buster)
+  mostrarRonda();                         // actualiza vista
 });
-document.getElementById('konamiId').addEventListener('keydown', function(e) {
+
+document.getElementById('konamiId').addEventListener('keydown', async (e) => {
   if (e.key === "Enter") {
+    const id = padId(e.target.value.trim());
+    localStorage.setItem('konamiId', id);
+    await cargarTorneo();
     mostrarRonda();
   }
 });
