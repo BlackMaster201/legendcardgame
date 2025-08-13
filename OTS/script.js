@@ -159,13 +159,14 @@ function mostrarHistorial(input, standing, nombreJugador) {
     const p1 = padId(match.querySelectorAll('Player')[0]?.textContent || "");
     const p2 = padId(match.querySelectorAll('Player')[1]?.textContent || "");
     const round = parseInt(match.querySelector('Round')?.textContent || "0", 10);
-    const winner = padId(match.querySelector('Winner')?.textContent || "");
+    const winnerRaw = match.querySelector('Winner')?.textContent?.trim() || "";
+    const winner = winnerRaw ? padId(winnerRaw) : "";
     if (input === p1 || input === p2) {
       const idOponente = input === p1 ? p2 : p1;
       const infoOpo = getPlayerInfo(idOponente);
       const nombreOponente = infoOpo ? infoOpo.nombre : '';
       let resultado = '';
-if (!winner || winner === '0') {
+  if (!winnerRaw || winnerRaw === '0') {
   if (round === currentRound) {
     resultado = 'En curso';
   } else {
